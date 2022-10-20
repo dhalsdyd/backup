@@ -1,4 +1,4 @@
-import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
+import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

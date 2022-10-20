@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_getx_boilerplate/app/data/service/auth/repository.dart';
+import 'package:backup/app/data/service/auth/repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 

@@ -1,4 +1,4 @@
-import 'package:firebase_getx_boilerplate/app/data/controllers/lifecycle.dart';
+import 'package:backup/app/data/controllers/lifecycle.dart';
 import 'package:get/get.dart';
 
 class AppInitalizer {

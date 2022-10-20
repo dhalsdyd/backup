@@ -1,4 +1,4 @@
-import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
+import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';

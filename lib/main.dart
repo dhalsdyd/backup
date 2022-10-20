@@ -1,7 +1,7 @@
-import 'package:firebase_getx_boilerplate/app/data/initalize.dart';
-import 'package:firebase_getx_boilerplate/app/routes/pages.dart';
-import 'package:firebase_getx_boilerplate/app/routes/route.dart';
-import 'package:firebase_getx_boilerplate/app/translation/translation.dart';
+import 'package:backup/app/data/initalize.dart';
+import 'package:backup/app/routes/pages.dart';
+import 'package:backup/app/routes/route.dart';
+import 'package:backup/app/translation/translation.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
