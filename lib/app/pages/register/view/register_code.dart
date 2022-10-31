@@ -1,7 +1,9 @@
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
+import 'package:backup/app/routes/route.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class RegisterCodePage extends StatelessWidget {
@@ -59,7 +61,9 @@ class RegisterCodePage extends StatelessWidget {
               ),
               FGBPMediumTextButton(
                 text: "Join the Family",
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(Routes.home);
+                },
               ),
             ],
           ),

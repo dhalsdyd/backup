@@ -61,7 +61,7 @@ class FGBPTextField extends StatelessWidget {
         counterText: "",
         fillColor: FGBPColors.White1,
         filled: true,
-        hintStyle: FGBPTextTheme.text2,
+        hintStyle: FGBPTextTheme.text2.copyWith(color: FGBPColors.Black3),
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,
@@ -128,9 +128,9 @@ class FGBPTextFormField extends StatelessWidget {
           ),
         ),
         counterText: "",
-        fillColor: FGBPColors.Black1,
+        fillColor: FGBPColors.White1,
         filled: true,
-        hintStyle: FGBPTextTheme.text2,
+        hintStyle: FGBPTextTheme.text2.copyWith(color: FGBPColors.Black3),
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,

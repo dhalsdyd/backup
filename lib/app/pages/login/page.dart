@@ -1,3 +1,4 @@
+import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/routes/route.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,9 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   const Text("BackUP", style: FGBPTextTheme.logo),
                   const SizedBox(height: 12),
-                  const Text("Let’s save your Family memory",
-                      style: FGBPTextTheme.text4Bold),
+                  Text("Let’s save your Family memory",
+                      style: FGBPTextTheme.head2
+                          .copyWith(color: FGBPColors.Black3)),
                 ],
               ),
             ),
@@ -53,8 +55,10 @@ class LoginPage extends StatelessWidget {
                     children: [
                       SvgPicture.asset("assets/images/google.svg"),
                       const SizedBox(width: 12),
-                      const Text("Login With Google",
-                          style: FGBPTextTheme.text4Bold),
+                      Text("Login With Google",
+                          style: FGBPTextTheme.text4Bold.copyWith(
+                              color: FGBPColors.Black3,
+                              fontWeight: FontWeight.w500)),
                     ],
                   ),
                 ),
