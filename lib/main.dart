@@ -21,7 +21,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       //unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
-      initialRoute: Routes.login,
+      initialRoute: Routes.home,
       getPages: AppPages.pages,
       theme: ThemeData(fontFamily: "Pretendard"),
       locale: GetCurrentLocale.currentDeviceLocale,
