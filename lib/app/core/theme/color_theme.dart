@@ -14,19 +14,4 @@ abstract class FGBPColors {
   static const Brown2 = Color(0xFF9F8772);
   static const Brown3 = Color(0xFFD4B9A0);
   static const Brown4 = Color(0xFFD8D3CE);
-
-  /// Main Color
-  static const mainColor = Colors.amber;
-
-  /// Sub Color
-  static const subColor = Color(0xffe2eaff);
-
-  /// black
-  static const black = Colors.black;
-
-  /// white
-  static const white = Colors.white;
-
-  /// grey
-  static const grey = Colors.grey;
 }
