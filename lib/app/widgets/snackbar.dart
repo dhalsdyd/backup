@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class FGBPSnackBar {
   static void open(
     String title, {
-    Color backgroundColor = FGBPColors.mainColor,
+    Color backgroundColor = FGBPColors.Brown3,
     Color textColor = Colors.white,
   }) {
     Get.rawSnackbar(
@@ -30,7 +30,7 @@ class FGBPErrorSnackBar {
   void open(String title, {String? message}) {
     FGBPSnackBar.open(
       title,
-      backgroundColor: FGBPColors.grey,
+      backgroundColor: FGBPColors.Brown3,
       textColor: Colors.white,
     );
   }

@@ -19,7 +19,7 @@ class FGBPIconButton extends StatelessWidget {
           width: 16,
           height: 16,
           decoration: BoxDecoration(
-            color: FGBPColors.mainColor,
+            color: FGBPColors.Brown3,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
@@ -46,7 +46,7 @@ class FGBPIconButton extends StatelessWidget {
         width: 48,
         height: 48,
         decoration: BoxDecoration(
-          color: FGBPColors.black,
+          color: FGBPColors.Black1,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Stack(
@@ -58,7 +58,7 @@ class FGBPIconButton extends StatelessWidget {
                   width: 24,
                   height: 24,
                   child:
-                      SvgPicture.asset(iconPath, color: FGBPColors.mainColor),
+                      SvgPicture.asset(iconPath, color: FGBPColors.Brown3),
                 ),
               ),
             ),
@@ -85,7 +85,7 @@ class FGBPKeyboardReactiveButton extends StatelessWidget {
     this.innerPadding = const EdgeInsets.all(16),
     this.onTap,
     this.padding = const EdgeInsets.all(0),
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.disabled = false,
   }) : super(key: key);
 
@@ -164,7 +164,7 @@ class FGBPBaseButton extends StatelessWidget {
       required this.padding,
       this.onTap,
       this.width,
-      this.color = FGBPColors.mainColor,
+      this.color = FGBPColors.Brown3,
       this.disabled = false})
       : super(key: key);
 
@@ -214,7 +214,7 @@ class FGBPLargeButton extends StatelessWidget {
     required this.child,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.disabled = false,
   }) : super(key: key);
 
@@ -243,7 +243,7 @@ class FGBPLargeTextButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
@@ -273,7 +273,7 @@ class FGBPMediumButton extends StatelessWidget {
     required this.child,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.disabled = false,
   }) : super(key: key);
 
@@ -302,7 +302,7 @@ class FGBPMediumTextButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
@@ -332,7 +332,7 @@ class FGBPSmallButton extends StatelessWidget {
     required this.child,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.disabled = false,
   }) : super(key: key);
 
@@ -361,7 +361,7 @@ class FGBPSmallTextButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = FGBPColors.Brown3,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);

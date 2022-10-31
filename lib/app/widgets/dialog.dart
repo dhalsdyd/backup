@@ -20,7 +20,7 @@ class FGBPDialogActionButton extends StatelessWidget {
     return FGBPMediumTextButton(
       text: action.title,
       onTap: action.onTap,
-      color: action.isHighlighted ? FGBPColors.mainColor : FGBPColors.black,
+      color: action.isHighlighted ? FGBPColors.Brown3 : FGBPColors.Black1,
     );
   }
 }
@@ -49,9 +49,9 @@ class FGBPDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(title, style: FGBPTextTheme.bold20),
+            Text(title, style: FGBPTextTheme.text4Bold),
             const SizedBox(height: 12),
-            Text(content, style: FGBPTextTheme.regular12),
+            Text(content, style: FGBPTextTheme.text2),
             const SizedBox(height: 12),
             for (var action in actions)
               Column(
