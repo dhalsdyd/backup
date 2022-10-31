@@ -63,6 +63,12 @@ abstract class FGBPTextTheme {
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );
+
+  static const description = TextStyle(
+    color: FGBPColors.Black3,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
   //Default Black
   //Name Rule
   //FontWeight + Color + Font Size
