@@ -38,7 +38,7 @@ class FGBPTextField extends StatelessWidget {
       enableSuggestions: !isPassword,
       autocorrect: !isPassword,
       autofocus: autofocus,
-      style: FGBPTextTheme.text4,
+      style: FGBPTextTheme.text2Bold,
       cursorColor: Colors.black,
       keyboardType: textInputType,
       maxLength: maxLength,
@@ -49,17 +49,19 @@ class FGBPTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            width: 0,
-            style: BorderStyle.none,
-          ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: FGBPColors.Black1),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: FGBPColors.Black1),
+        ),
+        border: const UnderlineInputBorder(
+          borderSide: BorderSide(color: FGBPColors.Black2, width: 1.0),
         ),
         counterText: "",
-        fillColor: FGBPColors.Black1,
+        fillColor: FGBPColors.White1,
         filled: true,
-        hintStyle: FGBPTextTheme.text3,
+        hintStyle: FGBPTextTheme.text2,
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,
@@ -108,7 +110,7 @@ class FGBPTextFormField extends StatelessWidget {
       enableSuggestions: !isPassword,
       autocorrect: !isPassword,
       autofocus: autofocus,
-      style: FGBPTextTheme.text4,
+      style: FGBPTextTheme.text2Bold,
       onEditingComplete: onEditingComplete,
       cursorColor: Colors.black,
       keyboardType: textInputType,
@@ -128,7 +130,7 @@ class FGBPTextFormField extends StatelessWidget {
         counterText: "",
         fillColor: FGBPColors.Black1,
         filled: true,
-        hintStyle: FGBPTextTheme.text3,
+        hintStyle: FGBPTextTheme.text2,
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,
