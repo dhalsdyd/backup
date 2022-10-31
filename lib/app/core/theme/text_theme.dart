@@ -2,6 +2,13 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
 abstract class FGBPTextTheme {
+  static const TextStyle logo = TextStyle(
+    fontFamily: 'Tenada',
+    fontWeight: FontWeight.w800,
+    fontSize: 28,
+    color: FGBPColors.Black1,
+  );
+
   static const head1 = TextStyle(
     color: FGBPColors.Black1,
     fontSize: 28,

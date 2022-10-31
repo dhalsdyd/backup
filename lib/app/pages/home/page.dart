@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
-            Text("Hello World!!!", style: FGBPTextTheme.bold20),
+            Text("Hello World!!!", style: FGBPTextTheme.text4Bold),
           ],
         ),
       )),
