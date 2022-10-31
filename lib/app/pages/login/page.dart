@@ -31,16 +31,24 @@ class LoginPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                    offset: const Offset(0, 4), // changes position of shadow
+                  ),
+                ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset("assets/images/google.svg"),
-                    const Expanded(
-                      child: Text("Login With Google",
-                          style: FGBPTextTheme.text4Bold),
-                    ),
+                    const SizedBox(width: 12),
+                    const Text("Login With Google",
+                        style: FGBPTextTheme.text4Bold),
                   ],
                 ),
               ),

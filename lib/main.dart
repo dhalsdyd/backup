@@ -19,6 +19,7 @@ void main() async {
   //Get.config();
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       //unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
       initialRoute: Routes.login,
       getPages: AppPages.pages,
