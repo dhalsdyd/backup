@@ -45,7 +45,7 @@ class RegisterCodePage extends StatelessWidget {
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(10),
                             fieldHeight: 60,
-                            fieldWidth: 55,
+                            fieldWidth: 45,
                             selectedColor: FGBPColors.Black1,
                             activeColor: FGBPColors.Black1,
                             inactiveColor: FGBPColors.Black3),
