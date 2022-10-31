@@ -71,8 +71,9 @@ flutter:
   fonts:
     - family: Tenada
       fonts:
-        - assets: fonts/tenada/Tenada.ttf
-        - weight: 800
+        - asset: fonts/tenada/Tenada.ttf
+          weight: 800
+
     - family: Pretendard
       fonts:
         - asset: fonts/Pretendard/Pretendard-Thin.ttf
