@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class RegisterCodePage extends StatelessWidget {
-  const RegisterCodePage({Key? key}) : super(key: key);
+class OnboardingCodePage extends StatelessWidget {
+  const OnboardingCodePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class RegisterCodePage extends StatelessWidget {
                     const SizedBox(height: 4),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Routes.register_make);
+                        Get.toNamed(Routes.onboarding_make);
                       },
                       child: Text("or, Make Family Group",
                           style: FGBPTextTheme.text2

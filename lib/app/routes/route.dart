@@ -3,7 +3,7 @@
 abstract class Routes {
   static const home = "/home";
   static const login = "/login";
-  static const register = "/register";
-  static const register_code = "/register/code";
-  static const register_make = "/register/make";
+  static const onboarding = "/onboarding";
+  static const onboarding_code = "/onboarding/code";
+  static const onboarding_make = "/onboarding/make";
 }

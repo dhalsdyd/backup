@@ -5,12 +5,21 @@ import 'package:backup/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterInitPage extends StatelessWidget {
-  const RegisterInitPage({Key? key}) : super(key: key);
+class OnboardingMakePage extends StatelessWidget {
+  const OnboardingMakePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            },
+          )),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(44),
@@ -22,26 +31,21 @@ class RegisterInitPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Enter Your Name",
+                      "Enter Your Family Name",
                       style: FGBPTextTheme.head2,
-                    ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      "This name is only seen to your family.",
-                      style: FGBPTextTheme.text2,
                     ),
                     const SizedBox(height: 50),
                     FGBPTextField(
-                      hintText: "Enter Your Name",
+                      hintText: "Family Name",
                       onChanged: (value) {},
                     ),
                   ],
                 ),
               ),
               FGBPMediumTextButton(
-                text: "Next",
+                text: "Create Family",
                 onTap: () {
-                  Get.toNamed(Routes.register_code);
+                  Get.toNamed(Routes.home);
                 },
               ),
             ],

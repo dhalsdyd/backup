@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed(Routes.register);
+                Get.toNamed(Routes.onboarding);
               },
               child: Container(
                 decoration: BoxDecoration(
