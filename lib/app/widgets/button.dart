@@ -40,6 +40,8 @@ class FGBPIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isSVG = iconPath.contains(".svg");
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -57,8 +59,9 @@ class FGBPIconButton extends StatelessWidget {
                 child: SizedBox(
                   width: 24,
                   height: 24,
-                  child:
-                      SvgPicture.asset(iconPath, color: FGBPColors.Brown3),
+                  child: isSVG
+                      ? SvgPicture.asset(iconPath, color: FGBPColors.Brown3)
+                      : Image.asset(iconPath, color: FGBPColors.Brown3),
                 ),
               ),
             ),

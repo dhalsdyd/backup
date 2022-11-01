@@ -26,9 +26,9 @@ class HomePage extends GetView<HomePageController> {
         distance: 70,
         type: ExpandableFabType.up,
         children: [
-          FGBPIconButton("assets/icons/folder.svg", onTap: () {}),
           FGBPIconButton("assets/icons/media.svg", onTap: () {}),
-          FGBPIconButton("assets/icons/camera.svg", onTap: () {}),
+          FGBPIconButton("assets/icons/camera.png", onTap: () {}),
+          FGBPIconButton("assets/icons/folder.png", onTap: () {}),
         ],
       ),
       body: SafeArea(
@@ -122,7 +122,7 @@ class HomePage extends GetView<HomePageController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const FGBPIconButton("assets/icons/hamburger.svg"),
+        const FGBPIconButton("assets/icons/hamburger.png"),
         Row(
           children: [
             const FGBPIconButton("assets/icons/search.svg"),
