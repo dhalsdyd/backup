@@ -12,9 +12,18 @@ class RegisterCodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            },
+          )),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(44),
+          padding: const EdgeInsets.only(left: 44, right: 44, bottom: 44),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,9 +62,14 @@ class RegisterCodePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text("or, Make Family Group",
-                        style: FGBPTextTheme.text2
-                            .copyWith(decoration: TextDecoration.underline)),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.register_make);
+                      },
+                      child: Text("or, Make Family Group",
+                          style: FGBPTextTheme.text2
+                              .copyWith(decoration: TextDecoration.underline)),
+                    ),
                   ],
                 ),
               ),

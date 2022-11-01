@@ -3,6 +3,7 @@ import 'package:backup/app/pages/home/page.dart';
 import 'package:backup/app/pages/login/page.dart';
 import 'package:backup/app/pages/register/view/register_code.dart';
 import 'package:backup/app/pages/register/view/register_init.dart';
+import 'package:backup/app/pages/register/view/register_make.dart';
 import 'package:backup/app/routes/route.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,10 @@ class AppPages {
     GetPage(
       name: Routes.register_code,
       page: () => const RegisterCodePage(),
+    ),
+    GetPage(
+      name: Routes.register_make,
+      page: () => const RegisterMakePage(),
     ),
   ];
 }
