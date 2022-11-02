@@ -1,12 +1,15 @@
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
+import 'package:backup/app/data/service/auth/service.dart';
 import 'package:backup/app/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final AuthService authService = Get.find<AuthService>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +35,9 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.onboarding);
+              onTap: () async {
+                await authService.loginWithGoogle();
+                print(authService.isFirstVisit);
               },
               child: Container(
                 decoration: BoxDecoration(

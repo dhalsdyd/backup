@@ -12,6 +12,6 @@ class LoginMiddleware extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     return authService.isAuthenticated
         ? null
-        : RouteSettings(name: Routes.home, arguments: {'redirect': route});
+        : RouteSettings(name: Routes.login, arguments: {'redirect': route});
   }
 }

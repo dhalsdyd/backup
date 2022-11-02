@@ -17,7 +17,7 @@ class AppPages {
         middlewares: [LoginMiddleware()]),
     GetPage(
       name: Routes.login,
-      page: () => const LoginPage(),
+      page: () =>  LoginPage(),
     ),
     GetPage(
       name: Routes.onboarding,
