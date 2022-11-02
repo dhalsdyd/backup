@@ -5,17 +5,15 @@ class AuthRepository {
 
   AuthRepository(this.api);
 
-  Future<Map> login(String email, String password) async {
+  Future<Map> loginWithGoogle(String idToken) async {
     return {};
   }
 
-  ///returnes Register Result
-  ///[email] is the email of the user
-  ///[password] is the password of the user
-  ///[name] is the name of the user
-  ///[birth] is the birth of the user
-  Future<Map> registerUser(
-      String email, String password, String name, String birth) async {
+  Future<Map> refresh(String refreshToken) async {
+    return {};
+  }
+
+  Future<Map> onboardingAuth() async {
     return {};
   }
 }

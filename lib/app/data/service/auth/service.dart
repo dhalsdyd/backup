@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:backup/app/core/util/google.dart';
 import 'package:dio/dio.dart';
 import 'package:backup/app/data/service/auth/repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -9,14 +10,23 @@ class AuthService extends GetxService {
   final AuthRepository repository;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
+  Completer<void>? _refreshTokenApiCompleter;
   final Rx<String?> _accessToken = Rx(null);
   final Rx<String?> _refreshToken = Rx(null);
+  final Rx<String?> _onboardingToken =
+      Rx(null); // /auth/login API에서 반환되는 AccessToken
+  final Rx<bool> _isFirstVisit = Rx(false);
+
+  /// Access Token
+  bool get isGoogleLoginSuccess => _onboardingToken.value != null;
 
   /// google sign-in과 onboarding 과정이 완료되었을 경우 true
   bool get isAuthenticated => _accessToken.value != null;
 
   String? get accessToken => _accessToken.value;
   String? get refreshToken => _refreshToken.value;
+  String? get onboardingToken => _onboardingToken.value;
+  bool get isFirstVisit => _isFirstVisit.value;
 
   AuthService(this.repository);
 
@@ -36,39 +46,46 @@ class AuthService extends GetxService {
     _refreshToken.value = token;
   }
 
-  Future<String> registerUser(
-      String email, String password, String name, String birth) async {
-    try {
-      Map registerResult =
-          await repository.registerUser(email, password, name, birth);
-      print(registerResult);
-      if (registerResult["status"] == "success") {
-        return "회원가입에 성공했습니다. 메일을 확인해주세요.";
-      } else {
-        return "fail";
-      }
-    } on DioError catch (e) {
-      rethrow;
-    }
+  Future<void> loginWithGoogle() async {
+    String idToken = await GoogleSignHelper().getIdToken();
+    Map loginResult = await repository.loginWithGoogle(idToken);
+    _onboardingToken.value = loginResult['accessToken'];
+    _isFirstVisit.value = loginResult['isFirstVisit'];
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login() async {
     try {
-      Map loginResult = await repository.login(email, password);
-      print(loginResult);
+      Map loginResult = await repository.onboardingAuth();
       _setAccessToken(loginResult["data"]["accessToken"]);
       _setRefreshToken(loginResult["data"]["refreshToken"]);
-    } on DioError catch (e) {
-      print(e.response!.statusCode.toString());
+    } on DioError catch (_) {
       rethrow;
     }
   }
 
-  Future<void> refreshAcessToken() async {}
+  Future<void> refreshAcessToken() async {
+    if (_refreshTokenApiCompleter != null) {
+      return _refreshTokenApiCompleter!.future;
+    }
+    _refreshTokenApiCompleter = Completer<void>();
+    try {
+      Map refreshResult = await repository.refresh(_refreshToken.value!);
+      _setAccessToken(refreshResult["data"]["accessToken"]);
+      _setRefreshToken(refreshResult["data"]["refreshToken"]);
+    } on DioError catch (_) {
+      rethrow;
+    } finally {
+      _refreshTokenApiCompleter!.complete();
+      _refreshTokenApiCompleter = null;
+    }
+  }
 
   Future<void> logout() async {
     _accessToken.value = null;
     _refreshToken.value = null;
+    _onboardingToken.value = null;
+    _refreshTokenApiCompleter = null;
+
     await _storage.delete(key: 'accessToken');
     await _storage.delete(key: 'refreshToken');
   }

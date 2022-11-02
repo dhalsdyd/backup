@@ -1,3 +1,4 @@
+import 'package:backup/app/core/middleware/login.dart';
 import 'package:backup/app/pages/home/binding.dart';
 import 'package:backup/app/pages/home/page.dart';
 import 'package:backup/app/pages/login/page.dart';
@@ -10,7 +11,10 @@ import 'package:get/get.dart';
 class AppPages {
   static final pages = [
     GetPage(
-        name: Routes.home, page: () => HomePage(), binding: HomePageBinding()),
+        name: Routes.home,
+        page: () => HomePage(),
+        binding: HomePageBinding(),
+        middlewares: [LoginMiddleware()]),
     GetPage(
       name: Routes.login,
       page: () => const LoginPage(),
