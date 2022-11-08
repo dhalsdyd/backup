@@ -17,4 +17,5 @@ class AuthRepository {
 
   Future<void> createFamily(String name) => api.onboardingCreateFamily(name);
   Future<void> enterName(String name) => api.onboardingName(name);
+  Future<void> enterFamily(String code) => api.enterFamily(code);
 }

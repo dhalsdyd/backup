@@ -103,6 +103,14 @@ class AuthService extends GetxService {
     }
   }
 
+  Future<void> enterFamily(String code) async {
+    try {
+      await repository.enterFamily(code);
+    } on DioError catch (e) {
+      FGBPSnackBar.open(e.message);
+    }
+  }
+
   Future<void> enterName(String name) async {
     try {
       await repository.enterName(name);

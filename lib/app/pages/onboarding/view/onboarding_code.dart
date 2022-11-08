@@ -1,5 +1,6 @@
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
+import 'package:backup/app/pages/onboarding/controller.dart';
 import 'package:backup/app/routes/route.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,10 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OnboardingCodePage extends StatelessWidget {
-  const OnboardingCodePage({Key? key}) : super(key: key);
+  OnboardingCodePage({Key? key}) : super(key: key);
+
+  final OnboardingPageController controller =
+      Get.find<OnboardingPageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +49,14 @@ class OnboardingCodePage extends StatelessWidget {
                       constraints:
                           const BoxConstraints(maxHeight: 300, maxWidth: 500),
                       child: PinCodeTextField(
+                        controller: controller.pinController,
                         autoFocus: true,
                         appContext: context,
                         length: 6,
                         onChanged: (_) {},
-                        onCompleted: (_) {},
+                        onCompleted: (code) {
+                          controller.enterFamily(code);
+                        },
                         pinTheme: PinTheme(
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(10),

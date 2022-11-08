@@ -7,6 +7,7 @@ class OnboardingPageController extends GetxController with StateMixin {
   final AuthService authService = Get.find<AuthService>();
 
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
   final Rx<String?> name = Rx(null);
   bool get inputValidity => name.value != null && name.value!.isNotEmpty;
 
@@ -26,6 +27,18 @@ class OnboardingPageController extends GetxController with StateMixin {
       nameController.text = "";
       change(null, status: RxStatus.success());
       Get.toNamed(Routes.onboarding_code);
+    } catch (e) {
+      change(null, status: RxStatus.error(e.toString()));
+    }
+  }
+
+  Future<void> enterFamily(String code) async {
+    change(null, status: RxStatus.loading());
+    try {
+      await authService.enterFamily(pinController.text);
+      pinController.text = "";
+      change(null, status: RxStatus.success());
+      Get.offAllNamed(Routes.home);
     } catch (e) {
       change(null, status: RxStatus.error(e.toString()));
     }

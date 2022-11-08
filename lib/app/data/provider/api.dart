@@ -193,9 +193,11 @@ class FGBPApiProvider implements FGBPApiInterface {
   }
 
   @override
-  Future<Map> enterFamily(String familyCode) {
-    // TODO: implement enterFamily
-    throw UnimplementedError();
+  Future<Map> enterFamily(String familyCode) async {
+    String url = "/onboarding/family-code";
+    Map body = {"code": familyCode};
+    Response response = await dio.post(url, data: body);
+    return response.data;
   }
 
   @override

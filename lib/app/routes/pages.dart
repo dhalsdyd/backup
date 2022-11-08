@@ -34,7 +34,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.onboarding_code,
-      page: () => const OnboardingCodePage(),
+      page: () => OnboardingCodePage(),
     ),
     GetPage(
       name: Routes.onboarding_make,

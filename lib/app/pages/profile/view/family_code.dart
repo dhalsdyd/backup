@@ -1,13 +1,27 @@
-import 'dart:async';
-
 import 'package:backup/app/core/theme/text_theme.dart';
-import 'package:backup/app/data/models/user.dart';
 import 'package:backup/app/data/module/profile/service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FamilyCodePage extends StatelessWidget {
-  FamilyCodePage({Key? key}) : super(key: key);
+class FamilyCodePage extends StatefulWidget {
+  const FamilyCodePage({Key? key}) : super(key: key);
+
+  @override
+  State<FamilyCodePage> createState() => _FamilyCodePageState();
+}
+
+class _FamilyCodePageState extends State<FamilyCodePage> {
+  @override
+  void initState() {
+    controller.getFamilyCode();
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    controller.disposeCode();
+    super.dispose();
+  }
 
   final ProfileController controller = Get.find<ProfileController>();
 
@@ -35,19 +49,14 @@ class FamilyCodePage extends StatelessWidget {
                       style: FGBPTextTheme.text2Bold,
                     ),
                     Text(
-                      "Left Time: ${controller.refreshTimer?.tick ?? 0}",
+                      "Left Time: ${controller.leftTime.value ?? 0}",
                       style: FGBPTextTheme.text2Bold,
                     ),
                   ],
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                controller.getFamilyCode();
-              },
-              child: const Text("getFamilyCode"),
-            ),
+
             //left Time
           ],
         ),
