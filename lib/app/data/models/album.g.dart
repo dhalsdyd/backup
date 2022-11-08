@@ -39,14 +39,14 @@ Map<String, dynamic> _$StoryToJson(Story instance) => <String, dynamic>{
 Contributor _$ContributorFromJson(Map<String, dynamic> json) => Contributor(
       id: json['id'] as int,
       name: json['name'] as String,
-      image: json['image'] as String,
+      picture: json['picture'] as String,
     );
 
 Map<String, dynamic> _$ContributorToJson(Contributor instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'image': instance.image,
+      'picture': instance.picture,
     };
 
 AlbumDetail _$AlbumDetailFromJson(Map<String, dynamic> json) => AlbumDetail(

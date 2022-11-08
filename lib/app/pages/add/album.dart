@@ -17,8 +17,8 @@ class AlbumPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           "Select Album",
           style: FGBPTextTheme.text4Bold,
@@ -26,14 +26,14 @@ class AlbumPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(35),
+          padding: const EdgeInsets.only(left: 35, right: 35, bottom: 35),
           child: Stack(
             fit: StackFit.expand,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text("RECENT", style: FGBPTextTheme.head2),
-                  Obx(() => Text("${controller.albums.value.length}")),
                   //album gridview
                   Expanded(
                     child: Obx(
@@ -56,7 +56,7 @@ class AlbumPage extends StatelessWidget {
                     onTap: () => Get.to(() => MakeAlbumPage()),
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: FGBPColors.Black1),
+                        border: Border.all(color: FGBPColors.Black3),
                         borderRadius: BorderRadius.circular(8),
                         color: Colors.white,
                         boxShadow: [
@@ -146,13 +146,13 @@ class AlbumPage extends StatelessWidget {
               ),
               if (controller.checkSelected(index))
                 Positioned(
-                  right: 0,
-                  bottom: 0,
+                  left: 14,
+                  top: 14,
                   child: Container(
                     width: 20,
                     height: 20,
                     decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: Color(0xff8ED967),
                       shape: BoxShape.circle,
                     ),
                     child: const Center(

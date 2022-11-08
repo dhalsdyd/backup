@@ -17,8 +17,8 @@ class MakeAlbumPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           "New Album",
           style: FGBPTextTheme.text4Bold,
@@ -26,14 +26,14 @@ class MakeAlbumPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(35),
+          padding: const EdgeInsets.only(left: 35, right: 35, bottom: 35),
           child: Column(
             children: [
               GestureDetector(
                 onTap: controller.autoGenerateAlbum,
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: FGBPColors.Black1),
+                    border: Border.all(color: FGBPColors.Black3),
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,
                     boxShadow: [

@@ -47,9 +47,9 @@ class Story {
 class Contributor {
   int id;
   String name;
-  String image;
+  String picture;
 
-  Contributor({required this.id, required this.name, required this.image});
+  Contributor({required this.id, required this.name, required this.picture});
 
   factory Contributor.fromJson(Map<String, dynamic> json) =>
       _$ContributorFromJson(json);
