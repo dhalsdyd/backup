@@ -30,9 +30,13 @@ class AddPage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                  flex: 5,
-                  child: Image.file(File(controller.fileSource.path),
-                      fit: BoxFit.cover)),
+                flex: 5,
+                child: GetPlatform.isWeb
+                    ? Image.memory(controller.fileSource.bytes,
+                        fit: BoxFit.cover)
+                    : Image.file(File(controller.fileSource.path),
+                        fit: BoxFit.cover),
+              ),
               const SizedBox(height: 20),
               FGBPTextField(controller: controller.nameController),
               const SizedBox(height: 20),
