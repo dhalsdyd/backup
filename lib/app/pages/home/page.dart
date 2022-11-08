@@ -21,17 +21,16 @@ class HomePage extends GetView<HomePageController> {
       floatingActionButton: ExpandableFab(
         foregroundColor: Colors.transparent,
         backgroundColor: Colors.transparent,
-        child: const FGBPIconButton("assets/icons/add.svg"),
-        closeButtonStyle: const ExpandableFabCloseButtonStyle(
+        child: _fab("assets/icons/add.svg", isButton: false),
+        closeButtonStyle: ExpandableFabCloseButtonStyle(
             backgroundColor: Colors.transparent,
-            child: FGBPIconButton("assets/icons/cross.svg")),
+            child: _fab("assets/icons/cross.svg", isButton: false)),
         distance: 70,
         type: ExpandableFabType.up,
         children: [
-          FGBPIconButton("assets/icons/media.svg", onTap: controller.openVideo),
-          FGBPIconButton("assets/icons/camera.png",
-              onTap: controller.openCamera),
-          FGBPIconButton("assets/icons/folder.png", onTap: controller.pickFile)
+          _fab("assets/icons/media.svg", onTap: controller.openVideo),
+          _fab("assets/icons/camera.png", onTap: controller.openCamera),
+          _fab("assets/icons/folder.png", onTap: controller.pickFile)
         ],
       ),
       body: SafeArea(
@@ -42,7 +41,7 @@ class HomePage extends GetView<HomePageController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header(),
-            const SizedBox(height: 36),
+            const SizedBox(height: 24),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -59,6 +58,69 @@ class HomePage extends GetView<HomePageController> {
         ),
       )),
       drawer: MainDrawer(),
+    );
+  }
+
+  Widget _fab(String imageUrl, {bool isButton = true, Function()? onTap}) {
+    bool isSVG = imageUrl.contains(".svg");
+
+    if (!isButton) {
+      return Container(
+          width: 55,
+          height: 55,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: Offset(0, 4), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Center(
+            child: isSVG
+                ? SvgPicture.asset(
+                    imageUrl,
+                    color: FGBPColors.Black1,
+                    width: 24,
+                    height: 24,
+                  )
+                : Image.asset(imageUrl,
+                    color: FGBPColors.Black1, width: 24, height: 24),
+          ));
+    }
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+          width: 55,
+          height: 55,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: Offset(0, 4), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Center(
+            child: isSVG
+                ? SvgPicture.asset(
+                    imageUrl,
+                    color: FGBPColors.Black1,
+                    width: 24,
+                    height: 24,
+                  )
+                : Image.asset(imageUrl,
+                    color: FGBPColors.Black1, width: 24, height: 24),
+          )),
     );
   }
 
@@ -184,9 +246,9 @@ class HomePage extends GetView<HomePageController> {
         Row(
           children: [
             const FGBPIconButton("assets/icons/search.svg"),
-            const SizedBox(width: 12),
+            const SizedBox(width: 24),
             const FGBPIconButton("assets/icons/notification.svg"),
-            const SizedBox(width: 12),
+            const SizedBox(width: 24),
             GestureDetector(
               onTap: () {
                 //Open Drawer
@@ -197,8 +259,8 @@ class HomePage extends GetView<HomePageController> {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     color: Colors.grey,
-                    borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
                       image: NetworkImage(
                           controller.profileController.profile.value?.picture ??

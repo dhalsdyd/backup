@@ -45,10 +45,10 @@ class FGBPIconButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 48,
-        height: 48,
+        width: 24,
+        height: 24,
         decoration: BoxDecoration(
-          color: FGBPColors.Black1,
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Stack(
@@ -60,8 +60,8 @@ class FGBPIconButton extends StatelessWidget {
                   width: 24,
                   height: 24,
                   child: isSVG
-                      ? SvgPicture.asset(iconPath, color: FGBPColors.Brown3)
-                      : Image.asset(iconPath, color: FGBPColors.Brown3),
+                      ? SvgPicture.asset(iconPath, color: FGBPColors.Black1)
+                      : Image.asset(iconPath, color: FGBPColors.Black1),
                 ),
               ),
             ),
