@@ -10,6 +10,8 @@ class ProfileController extends GetxController with StateMixin {
   ProfileController(this.repository);
 
   Timer? refreshTimer;
+  Timer? showTimer;
+  Rx<int?> leftTime = Rx(null);
   Rx<String?> familyCode = Rx(null);
 
   Future<void> getFamilyCode() async {
@@ -25,7 +27,22 @@ class ProfileController extends GetxController with StateMixin {
 
   Future refreshFamilyCode() async {
     refreshTimer?.cancel();
+    showTimer?.cancel();
+    leftTime.value = 60;
     refreshTimer = Timer(const Duration(seconds: 60), () => getFamilyCode());
+    showTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      leftTime.value = leftTime.value! - 1;
+      if (leftTime.value! < 0) {
+        leftTime.value = 0;
+      }
+    });
+  }
+
+  void disposeCode() {
+    refreshTimer?.cancel();
+    showTimer?.cancel();
+    leftTime.value = null;
+    familyCode.value = null;
   }
 
   Rx<Profile?> profile = Rx(null);
