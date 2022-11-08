@@ -5,9 +5,7 @@ class AuthRepository {
 
   AuthRepository(this.api);
 
-  Future<Map> loginWithGoogle(String idToken) async {
-    return {};
-  }
+  Future<Map> loginWithGoogle(String idToken) => api.loginWithGoogle(idToken);
 
   Future<Map> refresh(String refreshToken) async {
     return {};
@@ -16,4 +14,7 @@ class AuthRepository {
   Future<Map> onboardingAuth() async {
     return {};
   }
+
+  Future<void> createFamily(String name) => api.onboardingCreateFamily(name);
+  Future<void> enterName(String name) => api.onboardingName(name);
 }

@@ -1,12 +1,15 @@
+import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
-import 'package:backup/app/routes/route.dart';
+import 'package:backup/app/pages/onboarding/controller.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:backup/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardingInitPage extends StatelessWidget {
-  const OnboardingInitPage({Key? key}) : super(key: key);
+  OnboardingInitPage({Key? key}) : super(key: key);
+
+  final OnboardingPageController controller = Get.find<OnboardingPageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +30,41 @@ class OnboardingInitPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     const Text(
-                      "This name is only seen to your family.",
+                      "This name is only seen to your family. ",
                       style: FGBPTextTheme.text2,
                     ),
+                    Text("${controller.inputValidity}"),
                     const SizedBox(height: 50),
                     FGBPTextField(
                       hintText: "Enter Your Name",
+                      controller: controller.nameController,
                       onChanged: (value) {},
                     ),
                   ],
                 ),
               ),
-              FGBPMediumTextButton(
-                text: "Next",
-                onTap: () {
-                  Get.toNamed(Routes.onboarding_code);
-                },
+              controller.obx(
+                (_) => Obx(
+                  () => FGBPKeyboardReactiveButton(
+                    disabled: !controller.inputValidity,
+                    onTap:
+                        controller.inputValidity ? controller.enterName : null,
+                    child: const Text(
+                      "Next",
+                    ),
+                  ),
+                ),
+                onLoading: const FGBPKeyboardReactiveButton(
+                  disabled: false,
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      color: FGBPColors.White1,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

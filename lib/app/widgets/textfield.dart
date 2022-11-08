@@ -83,7 +83,9 @@ class FGBPTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final TextInputAction? textInputAction;
   final void Function()? onEditingComplete;
+  final void Function()? onTap;
   final bool? enableInteractiveSelection;
+  final bool readOnly;
 
   const FGBPTextFormField({
     Key? key,
@@ -99,11 +101,15 @@ class FGBPTextFormField extends StatelessWidget {
     this.enableInteractiveSelection,
     this.autofocus = false,
     this.isPassword = false,
+    this.readOnly = false,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      readOnly: readOnly,
       enableInteractiveSelection: enableInteractiveSelection,
       textInputAction: textInputAction,
       obscureText: isPassword,

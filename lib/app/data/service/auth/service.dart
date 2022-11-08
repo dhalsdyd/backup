@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:backup/app/core/util/google.dart';
+import 'package:backup/app/widgets/snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:backup/app/data/service/auth/repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -49,8 +50,12 @@ class AuthService extends GetxService {
   Future<void> loginWithGoogle() async {
     String idToken = await GoogleSignHelper().getIdToken();
     Map loginResult = await repository.loginWithGoogle(idToken);
-    _onboardingToken.value = loginResult['accessToken'];
-    _isFirstVisit.value = loginResult['isFirstVisit'];
+    _accessToken.value = loginResult["token"]['accessToken'];
+    _refreshToken.value = loginResult["token"]['refreshToken'];
+    //_onboardingToken.value = loginResult["token"]['accessToken'];
+    _isFirstVisit.value = loginResult['onbaording'];
+    _setAccessToken(_accessToken.value!);
+    _setRefreshToken(_refreshToken.value!);
   }
 
   Future<void> login() async {
@@ -88,5 +93,21 @@ class AuthService extends GetxService {
 
     await _storage.delete(key: 'accessToken');
     await _storage.delete(key: 'refreshToken');
+  }
+
+  Future<void> createFamily(String name) async {
+    try {
+      await repository.createFamily(name);
+    } on DioError catch (e) {
+      FGBPSnackBar.open(e.message);
+    }
+  }
+
+  Future<void> enterName(String name) async {
+    try {
+      await repository.enterName(name);
+    } on DioError catch (e) {
+      FGBPSnackBar.open(e.message);
+    }
   }
 }

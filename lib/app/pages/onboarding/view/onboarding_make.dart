@@ -1,12 +1,16 @@
+import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
-import 'package:backup/app/routes/route.dart';
+import 'package:backup/app/pages/onboarding/controller.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:backup/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardingMakePage extends StatelessWidget {
-  const OnboardingMakePage({Key? key}) : super(key: key);
+  OnboardingMakePage({Key? key}) : super(key: key);
+
+  final OnboardingPageController controller =
+      Get.find<OnboardingPageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +40,36 @@ class OnboardingMakePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 50),
                     FGBPTextField(
+                      controller: controller.nameController,
                       hintText: "Family Name",
                       onChanged: (value) {},
                     ),
                   ],
                 ),
               ),
-              FGBPMediumTextButton(
-                text: "Create Family",
-                onTap: () {
-                  Get.toNamed(Routes.home);
-                },
+              controller.obx(
+                (_) => Obx(
+                  () => FGBPKeyboardReactiveButton(
+                    disabled: !controller.inputValidity,
+                    onTap: controller.inputValidity
+                        ? controller.createFamily
+                        : null,
+                    child: const Text(
+                      "Create Family",
+                    ),
+                  ),
+                ),
+                onLoading: const FGBPKeyboardReactiveButton(
+                  disabled: false,
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      color: FGBPColors.White1,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

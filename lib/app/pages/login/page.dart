@@ -37,7 +37,12 @@ class LoginPage extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 await authService.loginWithGoogle();
-                print(authService.isFirstVisit);
+
+                if (!authService.isFirstVisit) {
+                  Get.offAllNamed(Routes.onboarding);
+                } else {
+                  Get.offAllNamed(Routes.home);
+                }
               },
               child: Container(
                 decoration: BoxDecoration(

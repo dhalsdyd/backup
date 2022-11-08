@@ -1,4 +1,3 @@
-import 'package:backup/app/data/controllers/lifecycle.dart';
 import 'package:backup/app/data/provider/api.dart';
 import 'package:backup/app/data/service/auth/repository.dart';
 import 'package:backup/app/data/service/auth/service.dart';

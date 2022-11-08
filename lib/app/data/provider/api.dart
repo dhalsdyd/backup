@@ -1,6 +1,10 @@
 import 'dart:developer';
 
+import 'package:backup/app/data/models/category.dart';
+import 'package:backup/app/data/models/album.dart';
+import 'package:backup/app/data/models/user.dart';
 import 'package:backup/app/data/service/auth/service.dart';
+import 'package:backup/app/pages/home/controller.dart';
 import 'package:dio/dio.dart';
 import 'package:backup/app/data/provider/api_interface.dart';
 import 'package:get/instance_manager.dart';
@@ -19,6 +23,7 @@ class JWTInterceptor extends Interceptor {
     }
 
     AuthService authService = Get.find<AuthService>();
+    //print(authService.accessToken);
 
     if (authService.isAuthenticated) {
       options.headers['Authorization'] = 'Bearer ${authService.accessToken}';
@@ -32,8 +37,9 @@ class JWTInterceptor extends Interceptor {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    AuthService authService = Get.find<AuthService>();
     //refresh api가 401시 무한 루프 방지
+
+    AuthService authService = Get.find<AuthService>();
     if (err.response?.requestOptions.path == '/auth/refresh') {
       return handler.next(err);
     }
@@ -76,7 +82,7 @@ class LogInterceptor extends Interceptor {
 
 class FGBPApiProvider implements FGBPApiInterface {
   final Dio dio = Dio();
-  final baseUrl = "https:...";
+  final baseUrl = "https://5gjwe7qbq8.apigw.gov-ntruss.com/sample/v1";
 
   FGBPApiProvider() {
     dio.options.baseUrl = baseUrl;
@@ -85,15 +91,17 @@ class FGBPApiProvider implements FGBPApiInterface {
   }
 
   @override
-  Future<Map> onboardingCreateFamily(String name) {
-    // TODO: implement onboardingCreateFamily
-    throw UnimplementedError();
+  Future<void> onboardingCreateFamily(String name) async {
+    String url = "/onboarding/create-family";
+    Map body = {"name": name};
+    await dio.post(url, data: body);
   }
 
   @override
-  Future<Map> onboardingName(String name) {
-    // TODO: implement onboardingName
-    throw UnimplementedError();
+  Future<void> onboardingName(String name) async {
+    String url = "/onboarding/name";
+    Map body = {"name": name};
+    await dio.post(url, data: body);
   }
 
   @override
@@ -116,5 +124,100 @@ class FGBPApiProvider implements FGBPApiInterface {
   Future<Map> onboardingAuth() {
     // TODO: implement onboardingAuth
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> createAlbum(String name, String? description, int? categoryId,
+      String? eventDate) async {
+    String url = "/album";
+    Map body = {"name": name, "categoryId": categoryId, "eventDate": eventDate};
+
+    if (description != null && description.isNotEmpty) {
+      body["description"] = description;
+    }
+
+    //print(body);
+    await dio.post(url, data: body);
+  }
+
+  @override
+  Future<List<Album>> getAlbums() async {
+    String url = "/album?sortType=lastViewed";
+    Response response = await dio.get(url);
+    return (response.data as List).map((e) => Album.fromJson(e)).toList();
+  }
+
+  @override
+  Future<List<Category>> getCategories() async {
+    String url = "/category";
+    Response response = await dio.get(url);
+    return (response.data as List).map((e) => Category.fromJson(e)).toList();
+  }
+
+  @override
+  Future<String> uploadFile(
+      FileSource fileSource, Function(int, int)? onSendProgress) async {
+    String url = "/upload";
+    // FormData formData = FormData.fromMap({
+    //   "file": await MultipartFile.fromFile(fileSource.path,
+    //       filename: fileSource.name),
+    // });
+
+    FormData formData2 = FormData.fromMap({
+      "file":
+          MultipartFile.fromBytes(fileSource.bytes, filename: fileSource.name),
+    });
+
+    Response response =
+        await dio.post(url, data: formData2, onSendProgress: onSendProgress);
+    return response.data["key"];
+  }
+
+  @override
+  Future<void> createStory(int albumId, String? description, String imageKey) {
+    String url = "/story";
+    Map body = {"albumId": albumId, "image": imageKey};
+
+    if (description != null && description.isNotEmpty) {
+      body["description"] = description;
+    }
+
+    return dio.post(url, data: body);
+  }
+
+  @override
+  Future<AlbumDetail> getAlbumDetails(int albumId) async {
+    String url = "/album/$albumId";
+    Response response = await dio.get(url);
+    return AlbumDetail.fromJson(response.data);
+  }
+
+  @override
+  Future<Map> enterFamily(String familyCode) {
+    // TODO: implement enterFamily
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getFamilyCode() async {
+    String url = "/user/family-code";
+    Response response = await dio.get(url);
+    return response.data["code"];
+  }
+
+  @override
+  Future<List<Member>> getFamilyMembers() async {
+    String url = "/user/family-members";
+    Response response = await dio.get(url);
+    return (response.data["members"] as List)
+        .map((e) => Member.fromJson(e))
+        .toList();
+  }
+
+  @override
+  Future<Profile> getMyProfile() async {
+    String url = "/user/me";
+    Response response = await dio.get(url);
+    return Profile.fromJson(response.data);
   }
 }

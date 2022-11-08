@@ -1,5 +1,7 @@
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
+import 'package:backup/app/data/models/album.dart';
+import 'package:backup/app/data/models/category.dart';
 import 'package:backup/app/pages/home/controller.dart';
 import 'package:backup/app/pages/home/widget/drawer.dart';
 import 'package:backup/app/widgets/button.dart';
@@ -26,9 +28,10 @@ class HomePage extends GetView<HomePageController> {
         distance: 70,
         type: ExpandableFabType.up,
         children: [
-          FGBPIconButton("assets/icons/media.svg", onTap: () {}),
-          FGBPIconButton("assets/icons/camera.png", onTap: () {}),
-          FGBPIconButton("assets/icons/folder.png", onTap: () {}),
+          FGBPIconButton("assets/icons/media.svg", onTap: controller.openVideo),
+          FGBPIconButton("assets/icons/camera.png",
+              onTap: controller.openCamera),
+          FGBPIconButton("assets/icons/folder.png", onTap: controller.pickFile)
         ],
       ),
       body: SafeArea(
@@ -47,7 +50,7 @@ class HomePage extends GetView<HomePageController> {
                   children: [
                     _gallary(),
                     const SizedBox(height: 36),
-                    Text("Recent", style: FGBPTextTheme.head1),
+                    const Text("Recent", style: FGBPTextTheme.head1),
                   ],
                 ),
               ),
@@ -59,51 +62,101 @@ class HomePage extends GetView<HomePageController> {
     );
   }
 
-  Column _gallary() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Gallary", style: FGBPTextTheme.head1),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: TabBar(
-                    isScrollable: true,
-                    controller: controller.tabController,
-                    tabs: controller.myTabs
-                        .map((e) => Text(
-                              e,
-                              style: FGBPTextTheme.text4Bold,
-                            ))
-                        .toList(),
-                    unselectedLabelStyle: FGBPTextTheme.text4Bold.copyWith(
-                      color: FGBPColors.Black3,
-                    ),
-                    // circle indicaotr
-                    indicator: CircleTabIndicator(
-                        color: FGBPColors.Brown1, radius: 3)),
-              ),
-            ),
-            FGBPIconButton("assets/icons/schedule.svg", onTap: () {}),
-          ],
-        ),
-        const SizedBox(height: 16),
-        ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 150, maxHeight: 250),
-          child: TabBarView(
-            controller: controller.tabController,
+  Widget _gallary() {
+    return controller.obx(
+      (_) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Gallary", style: FGBPTextTheme.head1),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _empty(),
-              _empty(),
-              _empty(),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: TabBar(
+                      isScrollable: true,
+                      controller: controller.tabController,
+                      tabs: controller.myTabs.value
+                          .map((e) => Text(
+                                e.name,
+                                style: FGBPTextTheme.text4Bold,
+                              ))
+                          .toList(),
+                      unselectedLabelStyle: FGBPTextTheme.text4Bold.copyWith(
+                        color: FGBPColors.Black3,
+                      ),
+                      // circle indicaotr
+                      indicator: CircleTabIndicator(
+                          color: FGBPColors.Brown1, radius: 3)),
+                ),
+              ),
+              FGBPIconButton("assets/icons/schedule.svg", onTap: () {}),
             ],
           ),
-        ),
-      ],
+          const SizedBox(height: 16),
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 150, maxHeight: 300),
+            child: Obx(
+              () => TabBarView(
+                controller: controller.tabController,
+                children: controller.myTabs.value
+                    .map((e) => _categoryAlbum(e))
+                    .toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _categoryAlbum(Category category) {
+    List<Album> albums = controller.getAlbumsByCategory(category.id);
+
+    if (albums.isEmpty) {
+      return _empty();
+    }
+
+    // horizontal axis
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: albums
+            .map(
+              (album) => GestureDetector(
+                onTap: () => controller.detailPage(album.id),
+                child: Container(
+                  margin: const EdgeInsets.only(right: 16),
+                  height: 250,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: FGBPColors.Brown1,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        left: 10,
+                        bottom: 10,
+                        child: Text(
+                          album.name,
+                          style: FGBPTextTheme.text4Bold,
+                        ),
+                      ),
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Text(album.description ?? ""),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 
@@ -122,7 +175,8 @@ class HomePage extends GetView<HomePageController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const FGBPIconButton("assets/icons/hamburger.png"),
+        FGBPIconButton("assets/icons/hamburger.png",
+            onTap: controller.openDrawer),
         Row(
           children: [
             const FGBPIconButton("assets/icons/search.svg"),
@@ -132,14 +186,22 @@ class HomePage extends GetView<HomePageController> {
             GestureDetector(
               onTap: () {
                 //Open Drawer
-                controller.openDrawer();
+                controller.logout();
               },
-              child: Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(8),
+              child: Obx(
+                () => Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          controller.profileController.profile.value?.picture ??
+                              ""),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
