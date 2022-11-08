@@ -134,6 +134,10 @@ class HomePage extends GetView<HomePageController> {
                   decoration: BoxDecoration(
                     color: FGBPColors.Brown1,
                     borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(album.thumbnail ?? ""),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Stack(
                     children: [
