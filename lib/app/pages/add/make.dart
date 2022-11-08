@@ -30,7 +30,7 @@ class MakeAlbumPage extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: controller.autoGenerateAlbum,
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: FGBPColors.Black1),

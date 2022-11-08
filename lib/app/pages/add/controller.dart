@@ -8,6 +8,7 @@ import 'package:backup/app/widgets/snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AddPageController extends GetxController with StateMixin {
   final FileSource fileSource = Get.arguments;
@@ -59,6 +60,25 @@ class AddPageController extends GetxController with StateMixin {
     imageName.value = nameController.text;
     nameController.clear();
     Get.to(() => AlbumPage());
+  }
+
+  void autoGenerateAlbum() async {
+    change(null, status: RxStatus.loading());
+
+    final DateTime now = DateTime.now();
+    String albumName = "${DateFormat.MMM().format(now)}. ${now.day}";
+    String description = "Auto Generated Album";
+    String date = now.toIso8601String();
+
+    try {
+      await albumController.createAlbum(
+          albumName, description, date, selectedCategory.value);
+      Get.back();
+    } on DioError catch (e) {
+      FGBPSnackBar.open(e.message);
+    } finally {
+      change(null, status: RxStatus.success());
+    }
   }
 
   void makeAlbum() async {
