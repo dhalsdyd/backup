@@ -110,6 +110,7 @@ class MakeAlbumPage extends StatelessWidget {
                         controller.albumValidity ? controller.makeAlbum : null,
                     child: const Text(
                       "Next",
+                      style: FGBPTextTheme.text2Bold,
                     ),
                   ),
                 ),

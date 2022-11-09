@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 class OnboardingInitPage extends StatelessWidget {
   OnboardingInitPage({Key? key}) : super(key: key);
 
-  final OnboardingPageController controller = Get.find<OnboardingPageController>();
+  final OnboardingPageController controller =
+      Get.find<OnboardingPageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,7 @@ class OnboardingInitPage extends StatelessWidget {
                         controller.inputValidity ? controller.enterName : null,
                     child: const Text(
                       "Next",
+                      style: FGBPTextTheme.text2Bold,
                     ),
                   ),
                 ),

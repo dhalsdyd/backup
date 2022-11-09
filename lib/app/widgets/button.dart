@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -134,11 +136,14 @@ class FGBPKeyboardReactiveButton extends StatelessWidget {
                       color: color,
                       child: InkWell(
                         onTap: disabled ? null : onTap,
-                        child: Container(
-                          width: width,
-                          padding: innerPadding,
-                          child: Center(
-                            child: child,
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                          child: Container(
+                            width: width,
+                            padding: innerPadding,
+                            child: Center(
+                              child: child,
+                            ),
                           ),
                         ),
                       ),
@@ -191,11 +196,14 @@ class FGBPBaseButton extends StatelessWidget {
             color: color,
             child: InkWell(
               onTap: disabled ? null : onTap,
-              child: Container(
-                width: width,
-                padding: padding,
-                child: Center(
-                  child: child,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(
+                  width: width,
+                  padding: padding,
+                  child: Center(
+                    child: child,
+                  ),
                 ),
               ),
             ),

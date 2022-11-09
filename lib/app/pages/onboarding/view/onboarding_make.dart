@@ -56,6 +56,7 @@ class OnboardingMakePage extends StatelessWidget {
                         : null,
                     child: const Text(
                       "Create Family",
+                      style: FGBPTextTheme.text2Bold,
                     ),
                   ),
                 ),
