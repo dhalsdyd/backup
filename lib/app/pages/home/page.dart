@@ -208,13 +208,16 @@ class HomePage extends GetView<HomePageController> {
                         bottom: 10,
                         child: Text(
                           album.name,
-                          style: FGBPTextTheme.text4Bold,
+                          style:
+                              FGBPTextTheme.head2.copyWith(color: Colors.white),
                         ),
                       ),
                       Positioned(
                         top: 10,
                         right: 10,
-                        child: Text(album.description ?? ""),
+                        child: Text(album.description ?? "",
+                            style: FGBPTextTheme.text1Bold
+                                .copyWith(color: Colors.white)),
                       ),
                     ],
                   ),

@@ -5,12 +5,25 @@ import 'package:backup/app/pages/add/controller.dart';
 import 'package:backup/app/pages/add/make.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AlbumPage extends StatelessWidget {
   AlbumPage({Key? key}) : super(key: key);
 
   final AddPageController controller = Get.find<AddPageController>();
+
+  Widget _empty() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SvgPicture.asset("assets/images/empty.svg"),
+        Text("There's no Album yet...",
+            style: FGBPTextTheme.text4.copyWith(color: FGBPColors.Black3))
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +49,12 @@ class AlbumPage extends StatelessWidget {
                   const Text("RECENT", style: FGBPTextTheme.head2),
                   //album gridview
                   Expanded(
-                    child: Obx(
-                      () => GridView.builder(
+                    child: Obx(() {
+                      if (controller.albums.value.isEmpty) {
+                        return Center(child: _empty());
+                      }
+
+                      return GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -49,8 +66,8 @@ class AlbumPage extends StatelessWidget {
                           return albumItem(
                               controller.albums.value[index], index);
                         },
-                      ),
-                    ),
+                      );
+                    }),
                   ),
                   GestureDetector(
                     onTap: () => Get.to(() => MakeAlbumPage()),
@@ -136,13 +153,15 @@ class AlbumPage extends StatelessWidget {
                 bottom: 10,
                 child: Text(
                   album.name,
-                  style: FGBPTextTheme.text4Bold,
+                  style: FGBPTextTheme.head2.copyWith(color: Colors.white),
                 ),
               ),
               Positioned(
                 top: 10,
                 right: 10,
-                child: Text(album.description ?? ""),
+                child: Text(album.description ?? "",
+                    style:
+                        FGBPTextTheme.text2Bold.copyWith(color: Colors.white)),
               ),
               if (controller.checkSelected(index))
                 Positioned(
