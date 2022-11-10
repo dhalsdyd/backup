@@ -54,9 +54,11 @@ class OnboardingMakePage extends StatelessWidget {
                     onTap: controller.inputValidity
                         ? controller.createFamily
                         : null,
-                    child: const Text(
+                    child: Text(
                       "Create Family",
-                      style: FGBPTextTheme.text2Bold,
+                      style: FGBPTextTheme.text2Bold.copyWith(
+                        color: FGBPColors.White1,
+                      ),
                     ),
                   ),
                 ),

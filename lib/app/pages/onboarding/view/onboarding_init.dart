@@ -50,9 +50,11 @@ class OnboardingInitPage extends StatelessWidget {
                     disabled: !controller.inputValidity,
                     onTap:
                         controller.inputValidity ? controller.enterName : null,
-                    child: const Text(
+                    child: Text(
                       "Next",
-                      style: FGBPTextTheme.text2Bold,
+                      style: FGBPTextTheme.text2Bold.copyWith(
+                        color: FGBPColors.White1,
+                      ),
                     ),
                   ),
                 ),
