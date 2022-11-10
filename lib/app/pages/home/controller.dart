@@ -103,9 +103,10 @@ class HomePageController extends GetxController
     }
   }
 
-  void detailPage(int albumId) async {
+  void detailPage(int albumId, String thumbnail) async {
     AlbumDetail albumDetail = await albumController.getAlbumDetail(albumId);
-    Get.to(() => AlbumDetailPage(), arguments: albumDetail);
+    Get.to(() => AlbumDetailPage(),
+        arguments: {"detail": albumDetail, "thumbnail": thumbnail});
   }
 
   List<Album> getAlbumsByCategory(int categoryId) {

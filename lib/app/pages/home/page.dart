@@ -188,7 +188,7 @@ class HomePage extends GetView<HomePageController> {
         children: albums
             .map(
               (album) => GestureDetector(
-                onTap: () => controller.detailPage(album.id),
+                onTap: () => controller.detailPage(album.id,album.thumbnail ?? ""),
                 child: Container(
                   margin: const EdgeInsets.only(right: 16),
                   height: 250,
