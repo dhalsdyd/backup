@@ -84,7 +84,7 @@ class HomePageController extends GetxController
     if (data is FilePickerResult) {
       FileSource fileSource = FileSource(
         name: data.files.first.name,
-        path: data.files.first.path ?? "",
+        path: GetPlatform.isWeb ? "" : data.files.first.path ?? "",
         bytes: data.files.first.bytes!,
         isImage: data.files.first.extension != "mp4",
       );
