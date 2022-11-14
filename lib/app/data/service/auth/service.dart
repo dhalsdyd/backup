@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:backup/app/core/util/google.dart';
 import 'package:backup/app/widgets/snackbar.dart';
@@ -32,8 +33,15 @@ class AuthService extends GetxService {
   AuthService(this.repository);
 
   Future<AuthService> init() async {
-    _accessToken.value = await _storage.read(key: 'accessToken');
-    _refreshToken.value = await _storage.read(key: 'refreshToken');
+    log("message: AuthService init()");
+    try {
+      _accessToken.value = await _storage.read(key: 'accessToken');
+      _refreshToken.value = await _storage.read(key: 'refreshToken');
+    } catch (e) {
+      log("message: AuthService init() error: $e");
+    }
+
+    log("message : _accessToken.value : ${_accessToken.value}");
     return this;
   }
 
@@ -100,6 +108,7 @@ class AuthService extends GetxService {
       await repository.createFamily(name);
     } on DioError catch (e) {
       FGBPSnackBar.open(e.message);
+      print(e.response!.data);
     }
   }
 

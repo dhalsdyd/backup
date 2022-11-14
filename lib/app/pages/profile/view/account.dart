@@ -25,18 +25,22 @@ class AccountPage extends StatelessWidget {
           padding: const EdgeInsets.all(44.0),
           child: Column(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(profile.picture),
-                radius: 50,
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  border: Border.all(color: FGBPColors.Brown4, width: 2),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(profile.picture),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               const SizedBox(height: 16),
               Text(
                 profile.name,
                 style: FGBPTextTheme.text2Bold,
-              ),
-              Text(
-                "@EXAMPLE",
-                style: FGBPTextTheme.text1.copyWith(color: FGBPColors.Black3),
               ),
               const SizedBox(height: 16),
               Row(

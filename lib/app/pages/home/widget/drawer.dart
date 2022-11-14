@@ -1,3 +1,4 @@
+import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/module/profile/service.dart';
 import 'package:backup/app/pages/profile/view/account.dart';
@@ -96,11 +97,12 @@ class MainDrawer extends StatelessWidget {
           () => Row(
             children: [
               Container(
-                width: 48,
-                height: 48,
+                width: 36,
+                height: 36,
                 decoration: BoxDecoration(
+                  border: Border.all(color: FGBPColors.Brown4, width: 2),
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(8),
+                  shape: BoxShape.circle,
                   image: DecorationImage(
                     image:
                         NetworkImage(controller.profile.value?.picture ?? ""),
@@ -109,15 +111,8 @@ class MainDrawer extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 4),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(controller.profile.value?.name ?? "",
-                      style: FGBPTextTheme.text1Bold),
-                  Text("@EXAMPLE",
-                      style: FGBPTextTheme.text1.copyWith(fontSize: 12)),
-                ],
-              ),
+              Text(controller.profile.value?.name ?? "",
+                  style: FGBPTextTheme.text1Bold),
             ],
           ),
         ),

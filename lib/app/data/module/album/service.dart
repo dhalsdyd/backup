@@ -29,7 +29,13 @@ class AlbumController extends GetxController {
   }
 
   Future<AlbumDetail> getAlbumDetail(int id) async {
-    return await repository.getAlbumDetails(id);
+    try {
+      return await repository.getAlbumDetails(id);
+    } on DioError catch (e) {
+      FGBPSnackBar.open(e.message);
+      print(e.response!.data);
+      throw e;
+    }
   }
 
   Future<void> createAlbum(

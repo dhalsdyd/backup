@@ -34,7 +34,6 @@ class OnboardingInitPage extends StatelessWidget {
                       "This name is only seen to your family. ",
                       style: FGBPTextTheme.text2,
                     ),
-                    Text("${controller.inputValidity}"),
                     const SizedBox(height: 50),
                     FGBPTextField(
                       hintText: "Enter Your Name",
