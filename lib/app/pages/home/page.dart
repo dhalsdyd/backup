@@ -8,7 +8,6 @@ import 'package:backup/app/pages/home/widget/drawer.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:backup/app/widgets/empty.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -19,21 +18,10 @@ class HomePage extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: controller.scaffoldKey,
-      floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: ExpandableFab(
-        foregroundColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        child: _fab("assets/icons/add.svg", isButton: false),
-        closeButtonStyle: ExpandableFabCloseButtonStyle(
-            backgroundColor: Colors.transparent,
-            child: _fab("assets/icons/cross.svg", isButton: false)),
-        distance: 70,
-        type: ExpandableFabType.up,
-        children: [
-          _fab("assets/icons/media.svg", onTap: controller.openVideo),
-          _fab("assets/icons/camera.png", onTap: controller.openCamera),
-          _fab("assets/icons/folder.png", onTap: controller.pickFile)
-        ],
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: FGBPColors.White1,
+        onPressed: controller.onTabFAB,
+        child: SvgPicture.asset("assets/icons/add.svg"),
       ),
       body: SafeArea(
           child: Column(
@@ -56,40 +44,6 @@ class HomePage extends GetView<HomePageController> {
         ],
       )),
       drawer: MainDrawer(),
-    );
-  }
-
-  Widget _fab(String imageUrl, {bool isButton = true, Function()? onTap}) {
-    bool isSVG = imageUrl.contains(".svg");
-
-    return GestureDetector(
-      onTap: isButton ? onTap : null,
-      child: Container(
-          width: 55,
-          height: 55,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 0,
-                blurRadius: 10,
-                offset: const Offset(0, 4), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Center(
-            child: isSVG
-                ? SvgPicture.asset(
-                    imageUrl,
-                    color: FGBPColors.Black1,
-                    width: 24,
-                    height: 24,
-                  )
-                : Image.asset(imageUrl,
-                    color: FGBPColors.Black1, width: 24, height: 24),
-          )),
     );
   }
 
@@ -161,6 +115,9 @@ class HomePage extends GetView<HomePageController> {
           ),
         ],
       ),
+      onLoading: const Center(
+          child: CircularProgressIndicator(
+              color: FGBPColors.Brown1, strokeWidth: 10)),
     );
   }
 

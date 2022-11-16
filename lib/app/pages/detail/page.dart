@@ -2,8 +2,10 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/models/album.dart';
 import 'package:backup/app/pages/detail/widget/story.dart';
+import 'package:backup/app/widgets/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AlbumDetailPage extends StatelessWidget {
@@ -15,6 +17,13 @@ class AlbumDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: FGBPColors.White1,
+        onPressed: () async {
+          FGBPActionType? result = await FGBPBottomSheet([]).show();
+        },
+        child: SvgPicture.asset("assets/icons/add.svg"),
+      ),
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
@@ -45,10 +54,19 @@ class AlbumDetailPage extends StatelessWidget {
                                 style: FGBPTextTheme.head1
                                     .copyWith(color: Colors.white),
                               ),
-                              Text(
-                                albumDetail.description ?? "",
-                                style: FGBPTextTheme.text2
-                                    .copyWith(color: FGBPColors.Black4),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      albumDetail.description ?? "",
+                                      style: FGBPTextTheme.text2
+                                          .copyWith(color: FGBPColors.Black4),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  const Icon(Icons.more_vert,
+                                      color: Colors.white)
+                                ],
                               ),
                               const SizedBox(height: 30),
                               Text(
@@ -111,6 +129,7 @@ class AlbumDetailPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36.0),
             child: SingleChildScrollView(
+              controller: scrollController,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

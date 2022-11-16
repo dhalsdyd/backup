@@ -2,6 +2,7 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FGBPDropdownMenu extends StatelessWidget {
   const FGBPDropdownMenu({
@@ -39,5 +40,32 @@ class FGBPDropdownMenu extends StatelessWidget {
             onChanged: onChanged),
       ),
     );
+  }
+}
+
+class OverlayItem {
+  late final OverlayEntry overlayEntry =
+      OverlayEntry(builder: _overlayEntryBuilder);
+  final LayerLink link = LayerLink();
+
+  dispose() {
+    overlayEntry.remove();
+  }
+
+  insertOverlay() {
+    OverlayState overlayState = Overlay.of(Get.overlayContext!)!;
+    overlayState.insert(overlayEntry);
+  }
+
+  removeOverlay() {
+    overlayEntry.remove();
+  }
+
+  Widget _overlayEntryBuilder(BuildContext context) {
+    return Positioned(
+        child: CompositedTransformFollower(
+      child: Container(),
+      link: link,
+    ));
   }
 }

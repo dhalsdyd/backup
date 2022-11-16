@@ -8,6 +8,7 @@ import 'package:backup/app/data/module/profile/service.dart';
 import 'package:backup/app/data/service/auth/service.dart';
 import 'package:backup/app/pages/detail/page.dart';
 import 'package:backup/app/pages/home/widget/camera.dart';
+import 'package:backup/app/widgets/bottom_sheet.dart';
 import 'package:camera/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,30 @@ class HomePageController extends GetxController
   void onClose() {
     tabController.dispose();
     super.onClose();
+  }
+
+  void onTabFAB() async {
+    FGBPActionType? result = await FGBPBottomSheet([
+      FGBPActionType.video,
+      FGBPActionType.picture,
+      FGBPActionType.file,
+      FGBPActionType.capsule,
+    ]).show();
+    if (result != null) {
+      switch (result) {
+        case FGBPActionType.video:
+          openVideo();
+          break;
+        case FGBPActionType.picture:
+          openCamera();
+          break;
+        case FGBPActionType.file:
+          pickFile();
+          break;
+        case FGBPActionType.capsule:
+          break;
+      }
+    }
   }
 
   void pickFile() async {
