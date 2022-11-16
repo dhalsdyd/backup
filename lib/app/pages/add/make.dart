@@ -16,12 +16,15 @@ class MakeAlbumPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: const Text(
           "New Album",
           style: FGBPTextTheme.text4Bold,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, size: 16),
+          onPressed: () {
+            Get.back();
+          },
         ),
       ),
       body: SafeArea(
@@ -33,8 +36,8 @@ class MakeAlbumPage extends StatelessWidget {
                 onTap: controller.autoGenerateAlbum,
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: FGBPColors.Black3),
-                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: FGBPColors.Black4),
+                    borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
@@ -57,7 +60,7 @@ class MakeAlbumPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 40),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -69,7 +72,7 @@ class MakeAlbumPage extends StatelessWidget {
                         controller: controller.nameController,
                         onChanged: (value) {},
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 50),
                       const Text("Description (Optional)",
                           style: FGBPTextTheme.head4),
                       FGBPTextFormField(
@@ -77,7 +80,7 @@ class MakeAlbumPage extends StatelessWidget {
                         hintText: "Album Description",
                         onChanged: (value) {},
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 50),
                       const Text("Date", style: FGBPTextTheme.head4),
                       FGBPTextFormField(
                         hintText: "Album Date",
@@ -86,7 +89,7 @@ class MakeAlbumPage extends StatelessWidget {
                         onTap: controller.selectDate,
                         onChanged: (value) {},
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 50),
                       const Text("Category", style: FGBPTextTheme.head4),
                       FGBPDropdownMenu(
                         items: controller.categories.value,
@@ -108,9 +111,11 @@ class MakeAlbumPage extends StatelessWidget {
                     disabled: !controller.albumValidity,
                     onTap:
                         controller.albumValidity ? controller.makeAlbum : null,
-                    child: const Text(
+                    child: Text(
                       "Next",
-                      style: FGBPTextTheme.text2Bold,
+                      style: FGBPTextTheme.text2Bold.copyWith(
+                        color: FGBPColors.White1,
+                      ),
                     ),
                   ),
                 ),

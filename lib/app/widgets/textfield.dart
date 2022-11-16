@@ -50,16 +50,16 @@ class FGBPTextField extends StatelessWidget {
         hintText: hintText,
         labelText: label,
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: FGBPColors.Black1),
+          borderSide: BorderSide(color: FGBPColors.Black2),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: FGBPColors.Black1),
+          borderSide: BorderSide(color: FGBPColors.Black2),
         ),
         border: const UnderlineInputBorder(
           borderSide: BorderSide(color: FGBPColors.Black2, width: 1.0),
         ),
         counterText: "",
-        fillColor: FGBPColors.White1,
+        fillColor: Colors.transparent,
         filled: true,
         hintStyle: FGBPTextTheme.text2.copyWith(color: FGBPColors.Black3),
         floatingLabelStyle: const TextStyle(
@@ -133,8 +133,14 @@ class FGBPTextFormField extends StatelessWidget {
             style: BorderStyle.none,
           ),
         ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: FGBPColors.Black2),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: FGBPColors.Black2),
+        ),
         counterText: "",
-        fillColor: FGBPColors.White1,
+        fillColor: Colors.transparent,
         filled: true,
         hintStyle: FGBPTextTheme.text2.copyWith(color: FGBPColors.Black3),
         floatingLabelStyle: const TextStyle(

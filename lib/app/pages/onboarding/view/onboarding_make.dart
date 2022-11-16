@@ -16,14 +16,12 @@ class OnboardingMakePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Get.back();
-            },
-          )),
+        icon: const Icon(Icons.arrow_back_ios, size: 16),
+        onPressed: () {
+          Get.back();
+        },
+      )),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(44),

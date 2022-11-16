@@ -53,12 +53,16 @@ class _FamilyCodePageState extends State<FamilyCodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+   
         title: const Text(
           "Family Code",
           style: FGBPTextTheme.text4Bold,
+        ),
+         leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, size: 16),
+          onPressed: () {
+            Get.back();
+          },
         ),
       ),
       body: SafeArea(

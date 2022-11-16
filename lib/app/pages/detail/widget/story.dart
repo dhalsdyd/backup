@@ -12,22 +12,49 @@ class BaseStoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(story.image, fit: BoxFit.cover)),
-          Text(
-            story.description ?? "",
-            style: FGBPTextTheme.text2,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 5,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 0),
+                  )
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.network(story.image, fit: BoxFit.cover)),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 10,
+              top: 10,
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Color(0xffd1d1d1), shape: BoxShape.circle),
+                child: Icon(Icons.more_horiz),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          story.description ?? "",
+          style: FGBPTextTheme.text2,
+        ),
+      ],
     );
   }
 }

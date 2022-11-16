@@ -23,7 +23,14 @@ Future<void> main() async {
       //unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
       initialRoute: Routes.home,
       getPages: AppPages.pages,
-      theme: ThemeData(fontFamily: "Pretendard"),
+      theme: ThemeData(
+        fontFamily: "Pretendard",
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
       locale: GetCurrentLocale.currentDeviceLocale,
       fallbackLocale: GetCurrentLocale.fallBackLocale,
       //routingCallback

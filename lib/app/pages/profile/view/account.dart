@@ -2,6 +2,7 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AccountPage extends StatelessWidget {
   AccountPage({Key? key, required this.profile}) : super(key: key);
@@ -12,12 +13,15 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: const Text(
           "Account",
           style: FGBPTextTheme.text4Bold,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, size: 16),
+          onPressed: () {
+            Get.back();
+          },
         ),
       ),
       body: SafeArea(

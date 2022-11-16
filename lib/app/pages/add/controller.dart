@@ -31,6 +31,10 @@ class AddPageController extends GetxController with StateMixin {
     categories.value = categoryController.categories;
     albums.value = albumController.albums;
     selectedCategory.value = categories.value.first.id;
+
+    DateTime result = DateTime.now();
+    date.value = result.toIso8601String();
+    dateController.text = date.value!;
     super.onInit();
   }
 

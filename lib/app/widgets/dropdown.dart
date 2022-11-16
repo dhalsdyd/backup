@@ -20,11 +20,11 @@ class FGBPDropdownMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: FGBPColors.White1,
+        color: const Color(0xffF1F1F1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
         child: DropdownButtonFormField(
             value: value,
             decoration: const InputDecoration(border: InputBorder.none),

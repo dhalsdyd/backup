@@ -126,6 +126,10 @@ class FGBPKeyboardReactiveButton extends StatelessWidget {
                           color: Color.fromRGBO(
                               color.red, color.green, color.blue, 0.24),
                           offset: const Offset(0, 4),
+                          blurRadius: 6),
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.12),
+                          offset: const Offset(0, 4),
                           blurRadius: 12)
                     ],
                     borderRadius: BorderRadius.circular(12 * (1 - value)),
@@ -185,6 +189,10 @@ class FGBPBaseButton extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 color: Color.fromRGBO(color.red, color.green, color.blue, 0.24),
+                offset: const Offset(0, 4),
+                blurRadius: 6),
+            BoxShadow(
+                color: Colors.black.withOpacity(0.12),
                 offset: const Offset(0, 4),
                 blurRadius: 12)
           ],

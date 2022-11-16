@@ -29,12 +29,15 @@ class AlbumPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: const Text(
           "Select Album",
           style: FGBPTextTheme.text4Bold,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, size: 16),
+          onPressed: () {
+            Get.back();
+          },
         ),
       ),
       body: SafeArea(
@@ -47,6 +50,7 @@ class AlbumPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text("RECENT", style: FGBPTextTheme.head2),
+                  const SizedBox(height: 16),
                   //album gridview
                   Expanded(
                     child: Obx(() {
@@ -57,10 +61,10 @@ class AlbumPage extends StatelessWidget {
                       return GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                        ),
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
+                                childAspectRatio: 149 / 172),
                         itemCount: controller.albums.value.length,
                         itemBuilder: (context, index) {
                           return albumItem(
@@ -73,8 +77,8 @@ class AlbumPage extends StatelessWidget {
                     onTap: () => Get.to(() => MakeAlbumPage()),
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: FGBPColors.Black3),
-                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: FGBPColors.Black4),
+                        borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
@@ -98,7 +102,7 @@ class AlbumPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   FGBPMediumTextButton(
                       text: "Select-Album", onTap: controller.upload),
                 ],
@@ -138,13 +142,22 @@ class AlbumPage extends StatelessWidget {
       () => GestureDetector(
         onTap: () => controller.selectAlbum(index),
         child: Container(
+          height: 200,
           decoration: BoxDecoration(
             color: FGBPColors.Brown1,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
               image: NetworkImage(album.thumbnail ?? ""),
               fit: BoxFit.cover,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 5,
+                blurRadius: 10,
+                offset: const Offset(0, 4), // changes position of shadow
+              ),
+            ],
           ),
           child: Stack(
             children: [
