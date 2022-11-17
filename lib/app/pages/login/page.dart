@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
               onTap: () async {
                 await authService.loginWithGoogle();
 
-                if (!authService.isFirstVisit) {
+                if (authService.isFirstVisit) {
                   Get.offAllNamed(Routes.onboarding);
                 } else {
                   Get.offAllNamed(Routes.home);
