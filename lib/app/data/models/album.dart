@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:backup/app/data/models/category.dart';
+import 'package:backup/app/data/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'album.g.dart';
 
@@ -29,13 +30,17 @@ class Album {
 @JsonSerializable()
 class Story {
   int id;
+  int? userId;
   String image;
+  String? album;
   String? description;
   DateTime createdAt;
 
   Story(
       {required this.id,
+      required this.userId,
       required this.image,
+      required this.album,
       required this.description,
       required this.createdAt});
 
@@ -83,4 +88,16 @@ class AlbumDetail {
   factory AlbumDetail.fromJson(Map<String, dynamic> json) =>
       _$AlbumDetailFromJson(json);
   Map<String, dynamic> toJson() => _$AlbumDetailToJson(this);
+}
+
+@JsonSerializable()
+class TodayStory {
+  List<Profile> users;
+  List<Story> story;
+
+  TodayStory({required this.users, required this.story});
+
+  factory TodayStory.fromJson(Map<String, dynamic> json) =>
+      _$TodayStoryFromJson(json);
+  Map<String, dynamic> toJson() => _$TodayStoryToJson(this);
 }

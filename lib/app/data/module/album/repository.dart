@@ -7,6 +7,7 @@ class AlbumRepository {
   AlbumRepository(this.api);
 
   Future<List<Album>> getAlbums() => api.getAlbums();
+  Future<TodayStory> todayStory() => api.getTodayStory();
   Future<AlbumDetail> getAlbumDetails(int albumId) =>
       api.getAlbumDetails(albumId);
   Future<void> createAlbum(

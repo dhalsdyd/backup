@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:backup/app/data/models/album.dart';
 import 'package:backup/app/data/models/category.dart';
+import 'package:backup/app/data/models/user.dart';
 import 'package:backup/app/data/module/album/service.dart';
 import 'package:backup/app/data/module/category/service.dart';
 import 'package:backup/app/data/module/profile/service.dart';
@@ -32,6 +33,9 @@ class HomePageController extends GetxController
 
   Rx<List<Category>> myTabs = Rx([]);
   List<Album> get albums => albumController.albums;
+  TodayStory? get todayStory => albumController.todayStory;
+  Profile getProfile(int id) => albumController.todayStory!.users
+      .firstWhere((element) => element.id == id);
 
   late TabController tabController;
 

@@ -222,4 +222,11 @@ class FGBPApiProvider implements FGBPApiInterface {
     Response response = await dio.get(url);
     return Profile.fromJson(response.data);
   }
+
+  @override
+  Future<TodayStory> getTodayStory() async {
+    String url = "/story/today";
+    Response response = await dio.get(url);
+    return TodayStory.fromJson(response.data);
+  }
 }

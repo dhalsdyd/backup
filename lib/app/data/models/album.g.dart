@@ -24,14 +24,18 @@ Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
 
 Story _$StoryFromJson(Map<String, dynamic> json) => Story(
       id: json['id'] as int,
+      userId: json['userId'] as int?,
       image: json['image'] as String,
+      album: json['album'] as String?,
       description: json['description'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$StoryToJson(Story instance) => <String, dynamic>{
       'id': instance.id,
+      'userId': instance.userId,
       'image': instance.image,
+      'album': instance.album,
       'description': instance.description,
       'createdAt': instance.createdAt.toIso8601String(),
     };
@@ -74,4 +78,19 @@ Map<String, dynamic> _$AlbumDetailToJson(AlbumDetail instance) =>
       'description': instance.description,
       'Story': instance.story,
       'contributors': instance.contributors,
+    };
+
+TodayStory _$TodayStoryFromJson(Map<String, dynamic> json) => TodayStory(
+      users: (json['users'] as List<dynamic>)
+          .map((e) => Profile.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      story: (json['story'] as List<dynamic>)
+          .map((e) => Story.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$TodayStoryToJson(TodayStory instance) =>
+    <String, dynamic>{
+      'users': instance.users,
+      'story': instance.story,
     };

@@ -12,6 +12,8 @@ abstract class FGBPApiInterface {
 
   Future<List<Category>> getCategories();
 
+  Future<TodayStory> getTodayStory();
+
   Future<List<Album>> getAlbums();
   Future<AlbumDetail> getAlbumDetails(int albumId);
   Future<void> createAlbum(

@@ -18,9 +18,10 @@ class Family {
 
 @JsonSerializable()
 class Profile {
+  int? id;
   String name;
   String picture;
-  Family family;
+  Family? family;
 
   Profile({required this.name, required this.picture, required this.family});
 

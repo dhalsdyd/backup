@@ -19,10 +19,13 @@ Map<String, dynamic> _$FamilyToJson(Family instance) => <String, dynamic>{
 Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       name: json['name'] as String,
       picture: json['picture'] as String,
-      family: Family.fromJson(json['family'] as Map<String, dynamic>),
-    );
+      family: json['family'] == null
+          ? null
+          : Family.fromJson(json['family'] as Map<String, dynamic>),
+    )..id = json['id'] as int?;
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'picture': instance.picture,
       'family': instance.family,

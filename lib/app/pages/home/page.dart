@@ -2,6 +2,7 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/models/album.dart';
 import 'package:backup/app/data/models/category.dart';
+import 'package:backup/app/data/models/user.dart';
 import 'package:backup/app/pages/home/controller.dart';
 import 'package:backup/app/pages/home/widget/album.dart';
 import 'package:backup/app/pages/home/widget/drawer.dart';
@@ -32,18 +33,102 @@ class HomePage extends GetView<HomePageController> {
           _header(),
           const SizedBox(height: 24),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _gallary(),
-                ],
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _gallary(),
+                    const SizedBox(height: 24),
+                    _todayStory(),
+                  ],
+                ),
               ),
             ),
           )
         ],
       )),
       drawer: MainDrawer(),
+    );
+  }
+
+  Widget _todayStory() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 35.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Today's Story",
+            style: FGBPTextTheme.head1,
+          ),
+          const SizedBox(height: 16),
+          Obx(() {
+            if (controller.todayStory == null) {
+              return const Empty();
+            }
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: controller.todayStory!.story.length,
+              itemBuilder: (context, index) {
+                Story item = controller.todayStory!.story[index];
+                Profile user = controller.getProfile(item.userId!);
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(user.picture),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${user.name} add this to ${item.album}",
+                                style: FGBPTextTheme.text1Bold,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                item.createdAt.nowAgo,
+                                style: FGBPTextTheme.text1,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: FGBPColors.Brown4,
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: NetworkImage(item.image),
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Divider(
+                      color: FGBPColors.Black3,
+                      thickness: 1,
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+            );
+          }),
+        ],
+      ),
     );
   }
 
@@ -142,7 +227,7 @@ class HomePage extends GetView<HomePageController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FGBPIconButton("assets/icons/hamburger.png",
+          FGBPIconButton("assets/icons/hamburger.svg",
               onTap: controller.openDrawer),
           Row(
             children: [
@@ -205,5 +290,34 @@ class _CirclePainter extends BoxPainter {
     final Offset circleOffset =
         offset + Offset(cfg.size!.width / 2, cfg.size!.height + radius);
     canvas.drawCircle(circleOffset, radius, _paint);
+  }
+}
+
+extension NowAgo on DateTime {
+  // 30분전
+  String get nowAgo {
+    final now = DateTime.now();
+    final diff = now.difference(this);
+    //몇년전
+    if (diff.inDays > 365) {
+      return "${diff.inDays ~/ 365}년전";
+    }
+    //몇달전
+    if (diff.inDays > 30) {
+      return "${diff.inDays ~/ 30}달전";
+    }
+    //몇주전
+    if (diff.inDays > 7) {
+      return "${diff.inDays ~/ 7}주전";
+    }
+    if (diff.inDays > 0) {
+      return "${diff.inDays}일 전";
+    } else if (diff.inHours > 0) {
+      return "${diff.inHours}시간 전";
+    } else if (diff.inMinutes > 0) {
+      return "${diff.inMinutes}분 전";
+    } else {
+      return "방금 전";
+    }
   }
 }

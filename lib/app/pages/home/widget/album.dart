@@ -16,7 +16,7 @@ class AlbumItem extends StatelessWidget {
       onTap: () => Get.find<HomePageController>()
           .detailPage(album.id, album.thumbnail ?? ""),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 18),
         height: 335,
         width: 241,
         decoration: BoxDecoration(

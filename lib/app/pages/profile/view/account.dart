@@ -55,7 +55,7 @@ class AccountPage extends StatelessWidget {
                     style: FGBPTextTheme.text2Bold,
                   ),
                   Text(
-                    profile.family.name,
+                    profile.family?.name ?? "",
                     style:
                         FGBPTextTheme.text2.copyWith(color: FGBPColors.Black2),
                   ),
@@ -70,7 +70,7 @@ class AccountPage extends StatelessWidget {
                     style: FGBPTextTheme.text2Bold,
                   ),
                   Text(
-                    profile.family.memberCount.toString(),
+                    profile.family?.memberCount.toString() ?? "",
                     style:
                         FGBPTextTheme.text2.copyWith(color: FGBPColors.Black2),
                   ),

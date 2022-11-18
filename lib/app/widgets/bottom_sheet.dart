@@ -23,11 +23,11 @@ extension FGBPActionTypeExtension on FGBPActionType {
   String get icon {
     switch (this) {
       case FGBPActionType.picture:
-        return "assets/icons/camera.png";
+        return "assets/icons/camera.svg";
       case FGBPActionType.video:
         return "assets/icons/media.svg";
       case FGBPActionType.file:
-        return "assets/icons/folder.png";
+        return "assets/icons/folder.svg";
       case FGBPActionType.capsule:
         return "assets/icons/capsule.svg";
     }

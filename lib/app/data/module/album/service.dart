@@ -12,14 +12,29 @@ class AlbumController extends GetxController {
   final RxList<Album> _albums = <Album>[].obs;
   List<Album> get albums => _albums;
 
+  final Rx<TodayStory?> _todayStory = Rx(null);
+  TodayStory? get todayStory => _todayStory.value;
+
   @override
   void onInit() async {
     super.onInit();
     try {
       _albums.value = await repository.getAlbums();
+      _todayStory.value = await repository.todayStory();
     } on DioError catch (e) {
       //print(e.response!.data);
       FGBPSnackBar.open(e.message);
+    }
+  }
+
+  Future<TodayStory> getTodayStory() async {
+    try {
+      _todayStory.value = await repository.todayStory();
+      return _todayStory.value!;
+    } on DioError catch (e) {
+      //print(e.response!.data);
+      FGBPSnackBar.open(e.message);
+      throw e;
     }
   }
 
