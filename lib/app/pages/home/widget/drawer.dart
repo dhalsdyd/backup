@@ -1,6 +1,7 @@
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/module/profile/service.dart';
+import 'package:backup/app/pages/profile/request_album.dart';
 import 'package:backup/app/pages/profile/view/account.dart';
 import 'package:backup/app/pages/profile/view/family_code.dart';
 import 'package:backup/app/pages/profile/view/manage_family.dart';
@@ -73,7 +74,9 @@ class MainDrawer extends StatelessWidget {
                 Get.to(
                     () => ManageFamilyPage(members: controller.members.value!));
               }),
-              _menuItem("assets/icons/Insights.svg", "Request Album", () {}),
+              _menuItem("assets/icons/Insights.svg", "Request Album", () {
+                Get.to(() => const RequestAlbumPage());
+              }),
               Expanded(child: Container()),
               const Text("Smile DeveloperS", style: FGBPTextTheme.description),
             ],
