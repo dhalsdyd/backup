@@ -2,7 +2,8 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/models/album.dart';
 import 'package:backup/app/pages/add/controller.dart';
-import 'package:backup/app/pages/add/make.dart';
+import 'package:backup/app/pages/add/view/capsule.dart';
+import 'package:backup/app/pages/add/view/make.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,67 +47,7 @@ class AlbumPage extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("RECENT", style: FGBPTextTheme.head2),
-                  const SizedBox(height: 16),
-                  //album gridview
-                  Expanded(
-                    child: Obx(() {
-                      if (controller.albums.value.isEmpty) {
-                        return Center(child: _empty());
-                      }
-
-                      return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20,
-                                childAspectRatio: 149 / 172),
-                        itemCount: controller.albums.value.length,
-                        itemBuilder: (context, index) {
-                          return albumItem(
-                              controller.albums.value[index], index);
-                        },
-                      );
-                    }),
-                  ),
-                  GestureDetector(
-                    onTap: () => Get.to(() => MakeAlbumPage()),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: FGBPColors.Black4),
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 0,
-                            blurRadius: 10,
-                            offset: const Offset(
-                                0, 4), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text("+ Create-New-Album",
-                              style: FGBPTextTheme.text2Bold.copyWith(
-                                  color: FGBPColors.Black2,
-                                  fontWeight: FontWeight.w500)),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 40),
-                  FGBPMediumTextButton(
-                      text: "Select-Album", onTap: controller.upload),
-                ],
-              ),
+              _albumOrCapsule(),
               Obx(() => controller.isUploading.isTrue
                   ? Center(
                       child: Stack(
@@ -137,12 +78,116 @@ class AlbumPage extends StatelessWidget {
     );
   }
 
+  Column _albumOrCapsule() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+            child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("RECENT", style: FGBPTextTheme.head2),
+                _addButton(
+                    "+ Create-New-Album", () => Get.to(() => MakeAlbumPage())),
+              ],
+            ),
+            const SizedBox(height: 8),
+            //album gridview
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: Obx(() {
+                if (controller.albums.value.isEmpty) {
+                  return Center(child: _empty());
+                }
+
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      childAspectRatio: 149 / 172),
+                  itemCount: controller.albums.value.length,
+                  itemBuilder: (context, index) {
+                    return albumItem(controller.albums.value[index], index);
+                  },
+                );
+              }),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Time Capsule", style: FGBPTextTheme.head2),
+                _addButton("+ Create-New-Capsule",
+                    () => Get.to(() => MakeCapsulePage())),
+              ],
+            ),
+            const SizedBox(height: 8),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: Obx(() {
+                if (controller.capsules.value.isEmpty) {
+                  return Center(child: _empty());
+                }
+
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      childAspectRatio: 1),
+                  itemCount: controller.capsules.value.length,
+                  itemBuilder: (context, index) {
+                    return albumItem(controller.capsules.value[index], index);
+                  },
+                );
+              }),
+            ),
+          ],
+        )),
+        const SizedBox(height: 40),
+        FGBPMediumTextButton(text: "Select-Album", onTap: controller.upload),
+      ],
+    );
+  }
+
+  GestureDetector _addButton(String text, Function() onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: FGBPColors.Black4),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(0, 4), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(text,
+                style: FGBPTextTheme.text2Bold.copyWith(
+                    color: FGBPColors.Black2, fontWeight: FontWeight.w500)),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget albumItem(Album album, int index) {
     return Obx(
       () => GestureDetector(
         onTap: () => controller.selectAlbum(index),
         child: Container(
-          height: 200,
+          height: 150,
           decoration: BoxDecoration(
             color: FGBPColors.Brown1,
             borderRadius: BorderRadius.circular(20),

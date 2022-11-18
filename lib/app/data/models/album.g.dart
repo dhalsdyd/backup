@@ -12,6 +12,7 @@ Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
       name: json['name'] as String,
       description: json['description'] as String?,
       thumbnail: json['thumbnail'] as String?,
+      revealsAt: json['revealsAt'] as String?,
     );
 
 Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
@@ -20,6 +21,7 @@ Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'thumbnail': instance.thumbnail,
+      'revealsAt': instance.revealsAt,
     };
 
 Story _$StoryFromJson(Map<String, dynamic> json) => Story(

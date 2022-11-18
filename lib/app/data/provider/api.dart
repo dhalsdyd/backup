@@ -128,21 +128,32 @@ class FGBPApiProvider implements FGBPApiInterface {
 
   @override
   Future<void> createAlbum(String name, String? description, int? categoryId,
-      String? eventDate) async {
+      String? eventDate, String? revealDate) async {
     String url = "/album";
-    Map body = {"name": name, "categoryId": categoryId, "eventDate": eventDate};
+    Map body = {"name": name};
+
+    if (categoryId != null) {
+      body["categoryId"] = categoryId;
+    }
+
+    if (eventDate != null && eventDate.isNotEmpty) {
+      body["eventDate"] = eventDate;
+    }
 
     if (description != null && description.isNotEmpty) {
       body["description"] = description;
     }
 
+    if (revealDate != null && revealDate.isNotEmpty) {
+      body["revealsAt"] = revealDate;
+    }
     //print(body);
     await dio.post(url, data: body);
   }
 
   @override
-  Future<List<Album>> getAlbums() async {
-    String url = "/album?sortType=lastViewed";
+  Future<List<Album>> getAlbums({String type = "album"}) async {
+    String url = "/album?sortType=lastViewed&type=$type";
     Response response = await dio.get(url);
     return (response.data as List).map((e) => Album.fromJson(e)).toList();
   }

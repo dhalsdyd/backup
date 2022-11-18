@@ -40,6 +40,8 @@ class HomePage extends GetView<HomePageController> {
                   children: [
                     _gallary(),
                     const SizedBox(height: 24),
+                    _capsule(),
+                    const SizedBox(height: 24),
                     _todayStory(),
                   ],
                 ),
@@ -125,6 +127,92 @@ class HomePage extends GetView<HomePageController> {
                   ],
                 );
               },
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _capsule() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 35),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Capsule",
+            style: FGBPTextTheme.head1,
+          ),
+          const SizedBox(height: 16),
+          Obx(() {
+            if (controller.todayStory == null) {
+              return const Empty();
+            }
+            return ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 200,
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.capsules.length,
+                itemBuilder: (context, index) {
+                  Album capsule = controller.capsules[index];
+
+                  return GestureDetector(
+                    onTap: () => Get.find<HomePageController>()
+                        .detailPage(capsule.id, capsule.thumbnail ?? "", false),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      height: 100,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: FGBPColors.Brown4,
+                              borderRadius: BorderRadius.circular(25),
+                              image: DecorationImage(
+                                image: NetworkImage(capsule.thumbnail ?? ""),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              top: 10,
+                              right: 10,
+                              child: Text(
+                                "~ ${capsule.revealsAt ?? ""}",
+                                style: FGBPTextTheme.text2Bold
+                                    .copyWith(color: FGBPColors.White1),
+                              )),
+                          Positioned(
+                            bottom: 10,
+                            left: 10,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  capsule.name,
+                                  style: FGBPTextTheme.text2Bold
+                                      .copyWith(color: FGBPColors.White1),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "${capsule.description ?? ""}",
+                                  style: FGBPTextTheme.text1
+                                      .copyWith(color: FGBPColors.White1),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             );
           }),
         ],

@@ -6,13 +6,13 @@ class AlbumRepository {
   final FGBPApiInterface api;
   AlbumRepository(this.api);
 
-  Future<List<Album>> getAlbums() => api.getAlbums();
+  Future<List<Album>> getAlbums(String type) => api.getAlbums(type: type);
   Future<TodayStory> todayStory() => api.getTodayStory();
   Future<AlbumDetail> getAlbumDetails(int albumId) =>
       api.getAlbumDetails(albumId);
-  Future<void> createAlbum(
-          String name, String description, String? date, int? categoryId) =>
-      api.createAlbum(name, description, categoryId, date);
+  Future<void> createAlbum(String name, String description, String? date,
+          int? categoryId, String? revealDate) =>
+      api.createAlbum(name, description, categoryId, date, revealDate);
 
   Future<String> uploadFile(
           FileSource fileSource, Function(int, int)? onSendProgress) =>

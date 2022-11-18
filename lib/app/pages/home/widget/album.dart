@@ -14,7 +14,7 @@ class AlbumItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.find<HomePageController>()
-          .detailPage(album.id, album.thumbnail ?? ""),
+          .detailPage(album.id, album.thumbnail ?? "", true),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 18),
         height: 335,

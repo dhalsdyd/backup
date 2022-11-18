@@ -14,10 +14,10 @@ abstract class FGBPApiInterface {
 
   Future<TodayStory> getTodayStory();
 
-  Future<List<Album>> getAlbums();
+  Future<List<Album>> getAlbums({String type = "album"});
   Future<AlbumDetail> getAlbumDetails(int albumId);
-  Future<void> createAlbum(
-      String name, String? description, int? categoryId, String? eventDate);
+  Future<void> createAlbum(String name, String? description, int? categoryId,
+      String? eventDate, String? revealDate);
   Future<String> uploadFile(
       FileSource fileSource, Function(int, int)? onSendProgress);
 

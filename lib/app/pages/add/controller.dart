@@ -2,7 +2,7 @@ import 'package:backup/app/data/models/album.dart';
 import 'package:backup/app/data/models/category.dart';
 import 'package:backup/app/data/module/album/service.dart';
 import 'package:backup/app/data/module/category/service.dart';
-import 'package:backup/app/pages/add/album.dart';
+import 'package:backup/app/pages/add/view/album.dart';
 import 'package:backup/app/pages/home/controller.dart';
 import 'package:backup/app/widgets/snackbar.dart';
 import 'package:dio/dio.dart';
@@ -18,6 +18,7 @@ class AddPageController extends GetxController with StateMixin {
 
   Rx<List<Category>> categories = Rx<List<Category>>([]);
   Rx<List<Album>> albums = Rx([]);
+  Rx<List<Album>> capsules = Rx([]);
 
   Rx<int?> selectedCategory = Rx(null);
   Rx<Album?> selectedAlbum = Rx(null);
@@ -30,6 +31,7 @@ class AddPageController extends GetxController with StateMixin {
     });
     categories.value = categoryController.categories;
     albums.value = albumController.albums;
+    capsules.value = albumController.capsules;
     selectedCategory.value = categories.value.first.id;
 
     DateTime result = DateTime.now();
@@ -76,7 +78,7 @@ class AddPageController extends GetxController with StateMixin {
 
     try {
       await albumController.createAlbum(
-          albumName, description, date, selectedCategory.value);
+          albumName, description, date, selectedCategory.value, null);
       Get.back();
     } on DioError catch (e) {
       FGBPSnackBar.open(e.message);
@@ -90,8 +92,9 @@ class AddPageController extends GetxController with StateMixin {
 
     try {
       await albumController.createAlbum(albumName.value!,
-          descriptionController.text, date.value, selectedCategory.value);
+          descriptionController.text, date.value, selectedCategory.value, null);
       albums.value = albumController.albums;
+      capsules.value = albumController.capsules;
 
       nameController.clear();
       descriptionController.clear();

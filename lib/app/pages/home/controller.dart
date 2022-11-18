@@ -7,7 +7,7 @@ import 'package:backup/app/data/module/album/service.dart';
 import 'package:backup/app/data/module/category/service.dart';
 import 'package:backup/app/data/module/profile/service.dart';
 import 'package:backup/app/data/service/auth/service.dart';
-import 'package:backup/app/pages/add/make.dart';
+import 'package:backup/app/pages/add/view/capsule.dart';
 import 'package:backup/app/pages/detail/page.dart';
 import 'package:backup/app/pages/home/widget/camera.dart';
 import 'package:backup/app/widgets/bottom_sheet.dart';
@@ -34,6 +34,7 @@ class HomePageController extends GetxController
 
   Rx<List<Category>> myTabs = Rx([]);
   List<Album> get albums => albumController.albums;
+  List<Album> get capsules => albumController.capsules;
   TodayStory? get todayStory => albumController.todayStory;
   Profile getProfile(int id) => albumController.todayStory!.users
       .firstWhere((element) => element.id == id);
@@ -78,6 +79,7 @@ class HomePageController extends GetxController
           pickFile();
           break;
         case FGBPActionType.capsule:
+          Get.to(() => MakeCapsulePage());
           break;
       }
     }
@@ -133,10 +135,18 @@ class HomePageController extends GetxController
     }
   }
 
-  void detailPage(int albumId, String thumbnail) async {
-    AlbumDetail albumDetail = await albumController.getAlbumDetail(albumId);
-    Get.to(() => AlbumDetailPage(),
-        arguments: {"detail": albumDetail, "thumbnail": thumbnail});
+  void detailPage(int albumId, String thumbnail, bool isCapsule) async {
+    Map arguments = {
+      "thumbnail": thumbnail,
+      "isCapsule": isCapsule,
+    };
+
+    if (isCapsule) {
+      AlbumDetail albumDetail = await albumController.getAlbumDetail(albumId);
+      arguments["detail"] = albumDetail;
+    }
+
+    Get.to(() => AlbumDetailPage(), arguments: arguments);
   }
 
   List<Album> getAlbumsByCategory(int categoryId) {

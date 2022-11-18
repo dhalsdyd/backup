@@ -12,6 +12,9 @@ class AlbumController extends GetxController {
   final RxList<Album> _albums = <Album>[].obs;
   List<Album> get albums => _albums;
 
+  final RxList<Album> _capsules = <Album>[].obs;
+  List<Album> get capsules => _capsules;
+
   final Rx<TodayStory?> _todayStory = Rx(null);
   TodayStory? get todayStory => _todayStory.value;
 
@@ -19,7 +22,8 @@ class AlbumController extends GetxController {
   void onInit() async {
     super.onInit();
     try {
-      _albums.value = await repository.getAlbums();
+      _albums.value = await repository.getAlbums("album");
+      _capsules.value = await repository.getAlbums("capsule");
       _todayStory.value = await repository.todayStory();
     } on DioError catch (e) {
       //print(e.response!.data);
@@ -38,8 +42,8 @@ class AlbumController extends GetxController {
     }
   }
 
-  Future<List<Album>> getAlbums() async {
-    _albums.value = await repository.getAlbums();
+  Future<List<Album>> getAlbums({String type = "album"}) async {
+    _albums.value = await repository.getAlbums(type);
     return _albums;
   }
 
@@ -53,15 +57,17 @@ class AlbumController extends GetxController {
     }
   }
 
-  Future<void> createAlbum(
-      String name, String description, String? date, int? categoryId) async {
+  Future<void> createAlbum(String name, String description, String? date,
+      int? categoryId, String? revealDate) async {
     try {
-      await repository.createAlbum(name, description, date, categoryId);
+      await repository.createAlbum(
+          name, description, date, categoryId, revealDate);
     } on DioError catch (e) {
       print(e.response!.data);
       return;
     }
-    _albums.value = await repository.getAlbums();
+    _albums.value = await repository.getAlbums("album");
+    _capsules.value = await repository.getAlbums("capsule");
   }
 
   Future<String> uploadFile(FileSource fileSource, String? name,
