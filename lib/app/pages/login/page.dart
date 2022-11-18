@@ -2,6 +2,7 @@ import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/service/auth/service.dart';
 import 'package:backup/app/routes/route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -41,7 +42,52 @@ class LoginPage extends StatelessWidget {
                 if (authService.isFirstVisit) {
                   Get.offAllNamed(Routes.onboarding);
                 } else {
-                  Get.offAllNamed(Routes.home);
+                  // check dialog
+                  if (GetPlatform.isAndroid) {
+                    Get.dialog(AlertDialog(
+                      title: const Text("Notice"),
+                      // 온보딩을 새로 하시면 기존 데이터가 삭제됩니다.
+                      content: const Text(
+                          "If you do onboarding again, your existing data will be deleted."),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.offAllNamed(Routes.onboarding);
+                          },
+                          child: const Text("OK"),
+                        ),
+                        // Go HOME
+                        TextButton(
+                          onPressed: () {
+                            Get.offAllNamed(Routes.home);
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                      ],
+                    ));
+                  } else if (GetPlatform.isIOS) {
+                    Get.dialog(CupertinoAlertDialog(
+                      title: const Text("Notice"),
+                      // 온보딩을 새로 하시면 기존 데이터가 삭제됩니다.
+                      content: const Text(
+                          "If you do onboarding again, your existing data will be deleted."),
+                      actions: [
+                        CupertinoDialogAction(
+                          onPressed: () {
+                            Get.offAllNamed(Routes.onboarding);
+                          },
+                          child: const Text("Onboarding"),
+                        ),
+                        // Go HOME
+                        CupertinoDialogAction(
+                          onPressed: () {
+                            Get.offAllNamed(Routes.home);
+                          },
+                          child: const Text("home"),
+                        ),
+                      ],
+                    ));
+                  }
                 }
               },
               child: Container(
