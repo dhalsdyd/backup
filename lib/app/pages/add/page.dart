@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/pages/add/controller.dart';
 import 'package:backup/app/widgets/button.dart';
@@ -46,13 +44,7 @@ class AddPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.memory(
-                      controller.fileSource.bytes,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  child: _imageOrVideo(),
                 ),
               ),
               const SizedBox(height: 20),
@@ -65,6 +57,32 @@ class AddPage extends StatelessWidget {
                   text: "Next", onTap: controller.enterImageName),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _imageOrVideo() {
+    if (controller.fileSource.isImage) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Image.memory(
+          controller.fileSource.bytes,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+
+    //동영상 미리보기는 지원하지 않습니다.
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Center(
+        child: Text(
+          "Video Preview is not supported",
+          style: FGBPTextTheme.text3Bold.copyWith(color: Colors.white),
         ),
       ),
     );

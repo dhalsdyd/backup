@@ -7,6 +7,7 @@ import 'package:backup/app/data/module/album/service.dart';
 import 'package:backup/app/data/module/category/service.dart';
 import 'package:backup/app/data/module/profile/service.dart';
 import 'package:backup/app/data/service/auth/service.dart';
+import 'package:backup/app/pages/add/make.dart';
 import 'package:backup/app/pages/detail/page.dart';
 import 'package:backup/app/pages/home/widget/camera.dart';
 import 'package:backup/app/widgets/bottom_sheet.dart';
@@ -104,8 +105,8 @@ class HomePageController extends GetxController
 
   void openVideo() async {
     await cameraController.value!.initialize();
-    XFile videoResult = await Get.to(
-        CameraPage(controller: cameraController.value!, isPhoto: false));
+    XFile videoResult =
+        await Get.to(VideoRecorderExample(controller: cameraController.value!));
     addPage(videoResult);
   }
 

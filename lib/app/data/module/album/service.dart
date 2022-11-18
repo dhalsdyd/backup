@@ -74,7 +74,7 @@ class AlbumController extends GetxController {
       String key = await repository.uploadFile(fileSource, onSendProgress);
       return key;
     } on DioError catch (_) {
-      //print(e.response!.data);
+      print(_.response!.data);
       rethrow;
     }
   }
