@@ -109,7 +109,8 @@ class AlbumPage extends StatelessWidget {
                             crossAxisCount: 2,
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20,
-                            childAspectRatio: 149 / 172),
+                            childAspectRatio: 149 / 172,
+                            mainAxisExtent: 300),
                     itemCount: controller.albums.value.length,
                     itemBuilder: (context, index) {
                       return albumItem(controller.albums.value[index], index);
@@ -141,7 +142,8 @@ class AlbumPage extends StatelessWidget {
                             crossAxisCount: 2,
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20,
-                            childAspectRatio: 1),
+                            childAspectRatio: 1,
+                            mainAxisExtent: 300),
                     itemCount: controller.capsules.value.length,
                     itemBuilder: (context, index) {
                       return albumItem(controller.capsules.value[index], index,
