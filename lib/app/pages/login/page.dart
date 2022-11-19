@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                   Get.offAllNamed(Routes.onboarding);
                 } else {
                   // check dialog
-                  if (GetPlatform.isAndroid) {
+                  if (GetPlatform.isAndroid || GetPlatform.isWeb) {
                     Get.dialog(AlertDialog(
                       title: const Text("Notice"),
                       // 온보딩을 새로 하시면 기존 데이터가 삭제됩니다.
