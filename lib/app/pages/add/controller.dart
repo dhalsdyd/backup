@@ -136,9 +136,27 @@ class AddPageController extends GetxController with StateMixin {
     }
   }
 
+  void selectCapsule(int index) {
+    if (selectedAlbum.value != null &&
+        selectedAlbum.value!.id == capsules.value[index].id) {
+      selectedAlbum.value = null;
+    } else {
+      selectedAlbum.value = capsules.value[index];
+    }
+  }
+
   bool checkSelected(int index) {
     if (selectedAlbum.value != null &&
         selectedAlbum.value!.id == albums.value[index].id) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool checkCapsuleSelected(int index) {
+    if (selectedAlbum.value != null &&
+        selectedAlbum.value!.id == capsules.value[index].id) {
       return true;
     } else {
       return false;

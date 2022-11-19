@@ -57,19 +57,18 @@ class HomePage extends GetView<HomePageController> {
   Widget _todayStory() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Today's Story",
-            style: FGBPTextTheme.head1,
-          ),
-          const SizedBox(height: 16),
-          Obx(() {
-            if (controller.todayStory == null) {
-              return const Empty();
-            }
-            return ListView.builder(
+      child: Obx(() {
+        if (controller.todayStory == null) {
+          return const SizedBox();
+        }
+        return Column(
+          children: [
+            const Text(
+              "Today's Story",
+              style: FGBPTextTheme.head1,
+            ),
+            const SizedBox(height: 16),
+            ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: controller.todayStory!.story.length,
@@ -127,10 +126,10 @@ class HomePage extends GetView<HomePageController> {
                   ],
                 );
               },
-            );
-          }),
-        ],
-      ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
@@ -151,7 +150,7 @@ class HomePage extends GetView<HomePageController> {
             }
             return ConstrainedBox(
               constraints: const BoxConstraints(
-                maxHeight: 200,
+                maxHeight: 300,
               ),
               child: ListView.builder(
                 shrinkWrap: true,

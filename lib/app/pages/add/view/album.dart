@@ -83,69 +83,75 @@ class AlbumPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-            child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("RECENT", style: FGBPTextTheme.head2),
-                _addButton(
-                    "+ Create-New-Album", () => Get.to(() => MakeAlbumPage())),
-              ],
-            ),
-            const SizedBox(height: 8),
-            //album gridview
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 200),
-              child: Obx(() {
-                if (controller.albums.value.isEmpty) {
-                  return Center(child: _empty());
-                }
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("RECENT", style: FGBPTextTheme.head2),
+                  _addButton("+ Create-New-Album",
+                      () => Get.to(() => MakeAlbumPage())),
+                ],
+              ),
+              const SizedBox(height: 8),
+              //album gridview
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 400),
+                child: Obx(() {
+                  if (controller.albums.value.isEmpty) {
+                    return Center(child: _empty());
+                  }
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      childAspectRatio: 149 / 172),
-                  itemCount: controller.albums.value.length,
-                  itemBuilder: (context, index) {
-                    return albumItem(controller.albums.value[index], index);
-                  },
-                );
-              }),
-            ),
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                            childAspectRatio: 149 / 172),
+                    itemCount: controller.albums.value.length,
+                    itemBuilder: (context, index) {
+                      return albumItem(controller.albums.value[index], index);
+                    },
+                  );
+                }),
+              ),
+              const SizedBox(height: 8),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Time Capsule", style: FGBPTextTheme.head2),
-                _addButton("+ Create-New-Capsule",
-                    () => Get.to(() => MakeCapsulePage())),
-              ],
-            ),
-            const SizedBox(height: 8),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 200),
-              child: Obx(() {
-                if (controller.capsules.value.isEmpty) {
-                  return Center(child: _empty());
-                }
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Time Capsule", style: FGBPTextTheme.head2),
+                  _addButton("+ Create-New-Capsule",
+                      () => Get.to(() => MakeCapsulePage())),
+                ],
+              ),
+              const SizedBox(height: 8),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 400),
+                child: Obx(() {
+                  if (controller.capsules.value.isEmpty) {
+                    return Center(child: _empty());
+                  }
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      childAspectRatio: 1),
-                  itemCount: controller.capsules.value.length,
-                  itemBuilder: (context, index) {
-                    return albumItem(controller.capsules.value[index], index);
-                  },
-                );
-              }),
-            ),
-          ],
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                            childAspectRatio: 1),
+                    itemCount: controller.capsules.value.length,
+                    itemBuilder: (context, index) {
+                      return albumItem(controller.capsules.value[index], index,
+                          isCapsule: true);
+                    },
+                  );
+                }),
+              ),
+            ],
+          ),
         )),
         const SizedBox(height: 40),
         FGBPMediumTextButton(text: "Select-Album", onTap: controller.upload),
@@ -182,10 +188,12 @@ class AlbumPage extends StatelessWidget {
     );
   }
 
-  Widget albumItem(Album album, int index) {
+  Widget albumItem(Album album, int index, {bool isCapsule = false}) {
     return Obx(
       () => GestureDetector(
-        onTap: () => controller.selectAlbum(index),
+        onTap: () => isCapsule
+            ? controller.selectCapsule(index)
+            : controller.selectAlbum(index),
         child: Container(
           height: 150,
           decoration: BoxDecoration(
@@ -221,7 +229,9 @@ class AlbumPage extends StatelessWidget {
                     style:
                         FGBPTextTheme.text2Bold.copyWith(color: Colors.white)),
               ),
-              if (controller.checkSelected(index))
+              if (isCapsule
+                  ? controller.checkCapsuleSelected(index)
+                  : controller.checkSelected(index))
                 Positioned(
                   left: 14,
                   top: 14,
