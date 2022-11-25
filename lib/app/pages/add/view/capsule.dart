@@ -27,8 +27,15 @@ class MakeCapsulePage extends StatelessWidget {
         currentDate: now,
         firstDate: DateTime(1900),
         lastDate: DateTime(DateTime.now().year, 12, 31));
-    if (result != null) {
-      _dateController.text = result.toIso8601String();
+    //Time Picker
+    TimeOfDay? time = await showTimePicker(
+        context: Get.overlayContext!,
+        initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+    if (result != null && time != null) {
+      DateTime dateTime = DateTime(
+          result.year, result.month, result.day, time.hour, time.minute);
+
+      _dateController.text = dateTime.toIso8601String();
     }
   }
 

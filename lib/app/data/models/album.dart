@@ -68,10 +68,10 @@ class AlbumDetail {
   int id;
   DateTime createdAt;
   @JsonKey(name: 'Category')
-  Category category;
+  Category? category;
   String name;
   @JsonKey(name: 'evnetDate')
-  DateTime eventDate;
+  DateTime? eventDate;
   String? description;
   @JsonKey(name: 'Story')
   List<Story> story;

@@ -65,7 +65,6 @@ class HomePageController extends GetxController
       FGBPActionType.video,
       FGBPActionType.picture,
       FGBPActionType.file,
-      FGBPActionType.capsule,
     ]).show();
     if (result != null) {
       switch (result) {

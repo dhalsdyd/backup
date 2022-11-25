@@ -159,8 +159,14 @@ class HomePage extends GetView<HomePageController> {
                   Album capsule = controller.capsules[index];
 
                   return GestureDetector(
-                    onTap: () => Get.find<HomePageController>()
-                        .detailPage(capsule.id, capsule.thumbnail ?? "", false),
+                    onTap: () {
+                      bool isCapsule = capsule.revealsAt != null &&
+                          DateTime.parse(capsule.revealsAt!)
+                              .isAfter(DateTime.now());
+
+                      Get.find<HomePageController>().detailPage(
+                          capsule.id, capsule.thumbnail ?? "", !isCapsule);
+                    },
                     child: Container(
                       margin: const EdgeInsets.only(bottom: 16),
                       height: 100,

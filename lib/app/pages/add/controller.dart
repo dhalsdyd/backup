@@ -174,7 +174,8 @@ class AddPageController extends GetxController with StateMixin {
         initialDate: now,
         currentDate: now,
         firstDate: DateTime(1900),
-        lastDate: DateTime(DateTime.now().year, 12, 31));
+        lastDate: DateTime(DateTime.now().year + 10, 12, 31));
+
     if (result != null) {
       date.value = result.toIso8601String();
       dateController.text = date.value!;

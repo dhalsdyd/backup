@@ -58,9 +58,13 @@ Map<String, dynamic> _$ContributorToJson(Contributor instance) =>
 AlbumDetail _$AlbumDetailFromJson(Map<String, dynamic> json) => AlbumDetail(
       id: json['id'] as int,
       createdAt: DateTime.parse(json['createdAt'] as String),
-      category: Category.fromJson(json['Category'] as Map<String, dynamic>),
+      category: json['Category'] == null
+          ? null
+          : Category.fromJson(json['Category'] as Map<String, dynamic>),
       name: json['name'] as String,
-      eventDate: DateTime.parse(json['evnetDate'] as String),
+      eventDate: json['evnetDate'] == null
+          ? null
+          : DateTime.parse(json['evnetDate'] as String),
       description: json['description'] as String?,
       story: (json['Story'] as List<dynamic>)
           .map((e) => Story.fromJson(e as Map<String, dynamic>))
@@ -76,7 +80,7 @@ Map<String, dynamic> _$AlbumDetailToJson(AlbumDetail instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'Category': instance.category,
       'name': instance.name,
-      'evnetDate': instance.eventDate.toIso8601String(),
+      'evnetDate': instance.eventDate?.toIso8601String(),
       'description': instance.description,
       'Story': instance.story,
       'contributors': instance.contributors,

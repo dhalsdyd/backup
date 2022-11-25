@@ -204,6 +204,7 @@ class FGBPApiProvider implements FGBPApiInterface {
   Future<AlbumDetail> getAlbumDetails(int albumId) async {
     String url = "/album/$albumId";
     Response response = await dio.get(url);
+    print(response.data);
     return AlbumDetail.fromJson(response.data);
   }
 
