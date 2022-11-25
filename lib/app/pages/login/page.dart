@@ -54,14 +54,14 @@ class LoginPage extends StatelessWidget {
                           onPressed: () {
                             Get.offAllNamed(Routes.onboarding);
                           },
-                          child: const Text("OK"),
+                          child: const Text("Onboarding"),
                         ),
                         // Go HOME
                         TextButton(
                           onPressed: () {
                             Get.offAllNamed(Routes.home);
                           },
-                          child: const Text("Cancel"),
+                          child: const Text("Home"),
                         ),
                       ],
                     ));
