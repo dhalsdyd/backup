@@ -11,8 +11,9 @@ class AlbumRepository {
   Future<AlbumDetail> getAlbumDetails(int albumId) =>
       api.getAlbumDetails(albumId);
   Future<void> createAlbum(String name, String description, String? date,
-          int? categoryId, String? revealDate) =>
-      api.createAlbum(name, description, categoryId, date, revealDate);
+          int? categoryId, String? revealDate, String? thumbnail) =>
+      api.createAlbum(
+          name, description, categoryId, date, revealDate, thumbnail);
 
   Future<String> uploadFile(
           FileSource fileSource, Function(int, int)? onSendProgress) =>

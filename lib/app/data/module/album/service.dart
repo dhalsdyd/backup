@@ -58,10 +58,10 @@ class AlbumController extends GetxController {
   }
 
   Future<void> createAlbum(String name, String description, String? date,
-      int? categoryId, String? revealDate) async {
+      int? categoryId, String? revealDate, String? thumbnail) async {
     try {
       await repository.createAlbum(
-          name, description, date, categoryId, revealDate);
+          name, description, date, categoryId, revealDate, thumbnail);
     } on DioError catch (e) {
       print(e.response!.data);
       return;

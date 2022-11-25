@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:backup/app/core/theme/color_theme.dart';
 import 'package:backup/app/core/theme/text_theme.dart';
 import 'package:backup/app/data/module/album/service.dart';
+import 'package:backup/app/pages/add/view/thumbnail.dart';
+import 'package:backup/app/pages/home/controller.dart';
 import 'package:backup/app/widgets/button.dart';
 import 'package:backup/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -81,12 +85,27 @@ class MakeCapsulePage extends StatelessWidget {
             ),
             FGBPKeyboardReactiveButton(
               onTap: () async {
+                final Uint8List? thumbnailData =
+                    await Get.to(() => SelectThumbnailPage());
+                String? thumbnailId = null;
+                if (thumbnailData == null) {
+                } else {
+                  FileSource thumbnailFileSource = FileSource(
+                      name: "thumbnailData",
+                      bytes: thumbnailData,
+                      path: "thumbnailData",
+                      isImage: true);
+                  thumbnailId = await Get.find<AlbumController>().uploadFile(
+                      thumbnailFileSource, "thumbnailData", (p0, p1) => null);
+                }
+
                 await Get.find<AlbumController>().createAlbum(
                     _nameController.text,
                     _descriptionController.text,
                     null,
                     null,
-                    _dateController.text);
+                    _dateController.text,
+                    thumbnailId);
                 Get.back();
               },
               child: Text(

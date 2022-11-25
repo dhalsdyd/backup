@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:backup/app/data/models/album.dart';
 import 'package:backup/app/data/models/category.dart';
 import 'package:backup/app/data/module/album/service.dart';
 import 'package:backup/app/data/module/category/service.dart';
 import 'package:backup/app/pages/add/view/album.dart';
+import 'package:backup/app/pages/add/view/thumbnail.dart';
 import 'package:backup/app/pages/home/controller.dart';
 import 'package:backup/app/widgets/snackbar.dart';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +26,14 @@ class AddPageController extends GetxController with StateMixin {
 
   Rx<int?> selectedCategory = Rx(null);
   Rx<Album?> selectedAlbum = Rx(null);
+
+  Rx<FilePickerResult?> selectedThumbnail = Rx(null);
+
+  void pickFile() async {
+    selectedThumbnail.value =
+        await FilePicker.platform.pickFiles(withData: true);
+    if (selectedThumbnail.value != null) {}
+  }
 
   @override
   void onInit() {
@@ -71,14 +83,32 @@ class AddPageController extends GetxController with StateMixin {
   void autoGenerateAlbum() async {
     change(null, status: RxStatus.loading());
 
+    final Uint8List? thumbnailData = await Get.to(() => SelectThumbnailPage());
+    String thumbnailId = "";
+
+    if (thumbnailData == null) {
+      thumbnailId = await albumController.uploadFile(
+          fileSource, "thumbnailData", (p0, p1) => null);
+    } else {
+      FileSource thumbnailFileSource = FileSource(
+          name: "thumbnailData",
+          bytes: thumbnailData,
+          path: "thumbnailData",
+          isImage: true);
+
+      thumbnailId = await albumController.uploadFile(
+          thumbnailFileSource, "thumbnailData", (p0, p1) => null);
+    }
+
     final DateTime now = DateTime.now();
     String albumName = "${DateFormat.MMM().format(now)}. ${now.day}";
     String description = "Auto Generated Album";
     String date = now.toIso8601String();
 
     try {
-      await albumController.createAlbum(
-          albumName, description, date, selectedCategory.value, null);
+      await albumController.createAlbum(albumName, description, date,
+          selectedCategory.value, null, thumbnailId);
+      selectedThumbnail.value = null;
       Get.back();
     } on DioError catch (e) {
       FGBPSnackBar.open(e.message);
@@ -90,9 +120,31 @@ class AddPageController extends GetxController with StateMixin {
   void makeAlbum() async {
     change(null, status: RxStatus.loading());
 
+    final Uint8List? thumbnailData = await Get.to(() => SelectThumbnailPage());
+    String? thumbnailId = null;
+
+    if (thumbnailData == null) {
+      thumbnailId = await albumController.uploadFile(
+          fileSource, "thumbnailData", (p0, p1) => null);
+    } else {
+      FileSource thumbnailFileSource = FileSource(
+          name: "thumbnailData",
+          bytes: thumbnailData,
+          path: "thumbnailData",
+          isImage: true);
+
+      thumbnailId = await albumController.uploadFile(
+          thumbnailFileSource, "thumbnailData", (p0, p1) => null);
+    }
+
     try {
-      await albumController.createAlbum(albumName.value!,
-          descriptionController.text, date.value, selectedCategory.value, null);
+      await albumController.createAlbum(
+          albumName.value!,
+          descriptionController.text,
+          date.value,
+          selectedCategory.value,
+          null,
+          thumbnailId);
       albums.value = albumController.albums;
       capsules.value = albumController.capsules;
 
@@ -102,6 +154,8 @@ class AddPageController extends GetxController with StateMixin {
 
       albumName.value = null;
       date.value = null;
+
+      selectedThumbnail.value = null;
 
       Get.back();
     } on DioError catch (e) {

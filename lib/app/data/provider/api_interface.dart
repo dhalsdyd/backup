@@ -17,7 +17,7 @@ abstract class FGBPApiInterface {
   Future<List<Album>> getAlbums({String type = "album"});
   Future<AlbumDetail> getAlbumDetails(int albumId);
   Future<void> createAlbum(String name, String? description, int? categoryId,
-      String? eventDate, String? revealDate);
+      String? eventDate, String? revealDate,String? thumbnail);
   Future<String> uploadFile(
       FileSource fileSource, Function(int, int)? onSendProgress);
 

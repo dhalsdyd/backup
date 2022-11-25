@@ -128,7 +128,7 @@ class FGBPApiProvider implements FGBPApiInterface {
 
   @override
   Future<void> createAlbum(String name, String? description, int? categoryId,
-      String? eventDate, String? revealDate) async {
+      String? eventDate, String? revealDate, String? thumbnail) async {
     String url = "/album";
     Map body = {"name": name};
 
@@ -146,6 +146,10 @@ class FGBPApiProvider implements FGBPApiInterface {
 
     if (revealDate != null && revealDate.isNotEmpty) {
       body["revealsAt"] = revealDate;
+    }
+
+    if (thumbnail != null && thumbnail.isNotEmpty) {
+      body["thumbnail"] = thumbnail;
     }
     //print(body);
     await dio.post(url, data: body);
