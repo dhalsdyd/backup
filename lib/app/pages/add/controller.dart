@@ -75,6 +75,10 @@ class AddPageController extends GetxController with StateMixin {
   final Rx<String?> date = Rx(null);
 
   void enterImageName() {
+    if (nameController.text.isEmpty) {
+      imageName.value = "Untitled";
+    }
+
     imageName.value = nameController.text;
     nameController.clear();
     Get.to(() => AlbumPage());
