@@ -179,6 +179,9 @@ class HomePage extends GetView<HomePageController> {
                               color: FGBPColors.Brown4,
                               borderRadius: BorderRadius.circular(25),
                               image: DecorationImage(
+                                colorFilter: ColorFilter.mode(
+                                    FGBPColors.Black1.withOpacity(0.8),
+                                    BlendMode.dstATop),
                                 image: NetworkImage(capsule.thumbnail ?? ""),
                                 fit: BoxFit.cover,
                               ),
