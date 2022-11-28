@@ -78,7 +78,7 @@ class MainDrawer extends StatelessWidget {
               _menuItem("assets/icons/Insights.svg", "Request Album", () {
                 Get.to(() => const RequestAlbumPage());
               }),
-              _menuItem("assets/icons/spectacle.svg", "Logout", () {
+              _menuItem("assets/icons/paper_plane.svg", "Logout", () {
                 Get.find<HomePageController>().logout();
               }),
               Expanded(child: Container()),

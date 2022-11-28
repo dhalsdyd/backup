@@ -24,7 +24,7 @@ class AlbumItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
           image: DecorationImage(
             colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                Colors.black.withOpacity(0.01), BlendMode.dstATop),
             image: NetworkImage(album.thumbnail ?? ""),
             fit: BoxFit.cover,
           ),
