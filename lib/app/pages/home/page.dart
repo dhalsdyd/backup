@@ -331,7 +331,7 @@ class HomePage extends GetView<HomePageController> {
               GestureDetector(
                 onTap: () {
                   //Open Drawer
-                  controller.logout();
+                  //controller.logout();
                 },
                 child: Obx(
                   () => Container(
