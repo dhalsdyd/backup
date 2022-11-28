@@ -36,7 +36,13 @@ class AlbumDetailPage extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.network(thumbnail, fit: BoxFit.cover),
+                        Opacity(
+                          opacity: 0.1,
+                          child: Image.network(
+                            thumbnail,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 36, vertical: 18),
