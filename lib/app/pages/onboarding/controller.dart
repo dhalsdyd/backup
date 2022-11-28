@@ -1,5 +1,6 @@
 import 'package:backup/app/data/service/auth/service.dart';
 import 'package:backup/app/routes/route.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
