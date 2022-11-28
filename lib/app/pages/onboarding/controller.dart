@@ -39,8 +39,11 @@ class OnboardingPageController extends GetxController with StateMixin {
       pinController.text = "";
       change(null, status: RxStatus.success());
       Get.offAllNamed(Routes.home);
-    } catch (e) {
+    } on DioError catch (e) {
+      pinController.text = "";
       change(null, status: RxStatus.error(e.toString()));
+    } finally {
+      change(null, status: RxStatus.success());
     }
   }
 
