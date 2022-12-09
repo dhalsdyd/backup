@@ -178,12 +178,14 @@ class AlbumPage extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Center(
-            child: Text(text,
-                style: FGBPTextTheme.text2Bold.copyWith(
-                    color: FGBPColors.Black2, fontWeight: FontWeight.w500)),
+            child: Icon(
+              Icons.add,
+              color: FGBPColors.Black1,
+              size: 16,
+            ),
           ),
         ),
       ),
