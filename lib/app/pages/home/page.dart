@@ -191,7 +191,7 @@ class HomePage extends GetView<HomePageController> {
                               top: 10,
                               right: 10,
                               child: Text(
-                                "~ ${capsule.revealsAt ?? ""}",
+                                "~ ${capsule.revealsAt?.dateTimeFormat ?? ""}",
                                 style: FGBPTextTheme.text2Bold
                                     .copyWith(color: FGBPColors.White1),
                               )),
@@ -415,5 +415,12 @@ extension NowAgo on DateTime {
     } else {
       return "방금 전";
     }
+  }
+}
+
+extension DateTimeFormat on String {
+  String get dateTimeFormat {
+    final date = DateTime.parse(this);
+    return "${date.year}년 ${date.month}월 ${date.day}일";
   }
 }
